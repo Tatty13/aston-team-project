@@ -6,7 +6,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const BuildConfig = {
   path: {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
-    dist: path.resolve(__dirname, 'dist'),
+    dist: path.resolve(__dirname, 'build'),
     html: path.resolve(__dirname, 'public', 'index.html'),
     src: path.resolve(__dirname, 'src'),
   },
