@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import styles from './Form.module.css'
+import styles from './Form.module.scss'
 
 interface FormProps {
   title: string
