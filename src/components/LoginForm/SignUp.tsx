@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { auth } from '../../../firebase'
 import { useAppDispatch } from '../../hooks/redux-hooks'
 import { setUser } from '../../store/slices/userSlice'
-import { Form } from './Form'
+import { Form } from './Form/Form'
 
 const SignUp = () => {
   const dispatch = useAppDispatch()
@@ -12,7 +12,6 @@ const SignUp = () => {
   const handleRegister = (email: string, password: string) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
-        console.log(user)
         dispatch(
           setUser({
             email: user.email,
