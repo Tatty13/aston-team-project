@@ -4,6 +4,5 @@ import { useAuth } from '../../hooks/use-auth'
 
 export const ProtectedRoute: FC<any> = ({ component: Component, ...props }) => {
   const { isAuth } = useAuth()
-  console.log({ isAuth })
   return isAuth ? <Component {...props} /> : <Navigate to='/login' replace />
 }
