@@ -8,7 +8,6 @@ const BuildConfig = {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     dist: path.resolve(__dirname, 'dist'),
     html: path.resolve(__dirname, 'public', 'index.html'),
-    src: path.resolve(__dirname, 'src'),
   },
 }
 
@@ -44,6 +43,12 @@ const getPlugins = () => {
 }
 
 module.exports = {
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+    },
+    historyApiFallback: true,
+  },
   entry: BuildConfig.path.entry,
   devtool: 'inline-source-map',
   output: {
