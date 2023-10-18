@@ -1,5 +1,5 @@
-import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+
 import './App.scss'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'

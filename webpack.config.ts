@@ -8,6 +8,8 @@ const BuildConfig = {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     dist: path.resolve(__dirname, 'dist'),
     html: path.resolve(__dirname, 'public', 'index.html'),
+    src: path.resolve(__dirname, 'src'),
+    favicon: path.resolve(__dirname, 'public', 'favicon.png'),
   },
 }
 
@@ -38,6 +40,7 @@ const getPlugins = () => {
     new CleanWebpackPlugin(),
     new HTMLWebpackPlugin({
       template: BuildConfig.path.html,
+      favicon: BuildConfig.path.favicon,
     }),
   ]
 }
