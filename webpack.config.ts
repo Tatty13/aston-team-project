@@ -46,6 +46,12 @@ const getPlugins = () => {
 }
 
 module.exports = {
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+    },
+    historyApiFallback: true,
+  },
   entry: BuildConfig.path.entry,
   devtool: 'inline-source-map',
   output: {

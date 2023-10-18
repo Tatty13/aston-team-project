@@ -1,17 +1,16 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-
+import { Route, Routes } from 'react-router-dom'
 import './App.scss'
+import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 
 function App() {
   return (
-    <div className='App'>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<div>Hello world!</div>} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <Routes>
+      <Route path='/' element={<HomePage />} />
+      <Route path='/login' element={<LoginPage />} />
+      <Route path='/register' element={<RegisterPage />} />
+    </Routes>
   )
 }
 
