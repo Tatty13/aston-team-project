@@ -1,13 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import userReducer from './slices/userSlice'
 
-const rootReducer = combineReducers({})
+const rootReducer = combineReducers({
+  user: userReducer,
+})
 
 export const store = configureStore({
-  reducer: {
-    user: userReducer,
-    rootReducer,
-  },
+  reducer: rootReducer,
 })
 
 export type AppDispatch = typeof store.dispatch
