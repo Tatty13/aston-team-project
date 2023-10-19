@@ -1,4 +1,5 @@
 import { FC, useState } from 'react'
+import styles from './Form.module.scss'
 
 interface FormProps {
   title: string
@@ -11,6 +12,7 @@ const Form: FC<FormProps> = ({ title, handleClick }) => {
 
   return (
     <form
+      className={styles.form}
       onSubmit={(e) => {
         e.preventDefault()
         handleClick(email, pass)
