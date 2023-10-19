@@ -32,7 +32,15 @@ const getRules = () => {
     },
     {
       test: /\.(css|scss)$/,
-      use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      use: [
+        MiniCssExtractPlugin.loader,
+        {
+          loader: 'css-loader',
+          options: { importLoaders: 1 },
+        },
+        'postcss-loader',
+        'sass-loader',
+      ],
       exclude: /node_modules/,
     },
     {
