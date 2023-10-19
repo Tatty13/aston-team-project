@@ -1,25 +1,34 @@
 const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const Dotenv = require('dotenv-webpack')
 
 const PATHS = {
   src: path.join(__dirname, 'src'),
   dist: path.resolve(__dirname, 'dist'),
-
-  html: path.resolve(__dirname, 'public', 'index.html'),
-  favicon: path.resolve(__dirname, 'public', 'favicon.png'),
+  public: path.resolve(__dirname, 'public'),
 }
 
 const getPlugins = () => {
   return [
     new HTMLWebpackPlugin({
       title: 'Production',
-      template: PATHS.html,
-      favicon: PATHS.favicon,
+      template: path.resolve(PATHS.public, 'index.html'),
+      favicon: path.resolve(PATHS.public, 'favicon.png'),
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(PATHS.public, '404.html'),
+          to: path.resolve(PATHS.dist, '404.html'),
+        },
+      ],
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
+    new Dotenv(),
   ]
 }
 
@@ -27,7 +36,7 @@ const getRules = () => {
   return [
     {
       test: /\.ts(x?)?$/,
-      use: 'ts-loader',
+      use: 'babel-loader',
       exclude: /node_modules/,
     },
     {
