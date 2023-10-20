@@ -11,7 +11,13 @@ const Form: FC<FormProps> = ({ title, handleClick }) => {
   const [pass, setPass] = useState('')
 
   return (
-    <form className={styles.form}>
+    <form
+      className={styles.form}
+      onSubmit={(e) => {
+        e.preventDefault()
+        handleClick(email, pass)
+      }}
+    >
       <input
         type='email'
         value={email}
@@ -24,7 +30,7 @@ const Form: FC<FormProps> = ({ title, handleClick }) => {
         onChange={(e) => setPass(e.target.value)}
         placeholder='password'
       />
-      <button onClick={() => handleClick(email, pass)}>{title}</button>
+      <button>{title}</button>
     </form>
   )
 }
