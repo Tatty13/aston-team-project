@@ -73,12 +73,14 @@ export const getListPhotos = (params?: {
 }
 
 /**
- * Get a random photo
+ * Get a random photo.
+ * "topics" value is a string with a public topic ID(‘s). If multiple, comma-separated
  */
 export const getRandomPhoto = (params?: {
   query?: string
   orientation?: Orientations
   count?: RandomPhotosCountRange
+  topics?: string
 }) => {
   let queryString = ''
 
