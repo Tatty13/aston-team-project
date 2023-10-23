@@ -1,7 +1,7 @@
-import NavBarLink from '../ui/NavBarLink/NavBarLink'
+import NavBar from '../ui/NavBar/NavBar'
 
 const Header = () => {
-  return <NavBarLink />
+  return <NavBar />
 }
 
 export default Header
