@@ -2,15 +2,15 @@ import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import './App.scss'
-import { useAppDispatch } from './app/hooks'
+import { useAppDispatch } from '@hooks'
 import {
   CardInfoPage,
   FavoritesPage,
   HomePage,
   LoginPage,
   RegisterPage,
-} from './pages'
-import { checkAuth } from './store/actions/authAction'
+} from '@pages'
+import { checkAuth } from '@store/actions/authAction'
 
 function App() {
   const dispatch = useAppDispatch()

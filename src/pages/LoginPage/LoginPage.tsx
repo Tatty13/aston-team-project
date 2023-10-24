@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 
+import { useAuth } from '@hooks'
+
 import { Login } from './Login'
-import { useAuth } from '../../app/hooks'
 
 const LoginPage = () => {
   const { isAuth } = useAuth()

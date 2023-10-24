@@ -92,6 +92,20 @@ module.exports = {
     rules: getRules(),
   },
   resolve: {
-    extensions: ['.ts', '.js', '.tsx'],
+    extensions: ['.ts', '.js', '.tsx', '...'],
+    alias: {
+      '@src': path.resolve(__dirname, 'src'),
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@app': path.resolve(__dirname, 'src/app'),
+      '@api': path.resolve(__dirname, 'src/app/api'),
+      '@constants': path.resolve(__dirname, 'src/app/constants'),
+      '@HOC': path.resolve(__dirname, 'src/app/HOC'),
+      '@hooks': path.resolve(__dirname, 'src/app/hooks'),
+      '@vendor': path.resolve(__dirname, 'src/app/vendor'),
+      '@assets': path.resolve(__dirname, 'src/assets'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@store': path.resolve(__dirname, 'src/store'),
+      '@types': path.resolve(__dirname, 'src/types'),
+    },
   },
 }

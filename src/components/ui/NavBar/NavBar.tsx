@@ -2,12 +2,11 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { signOut } from 'firebase/auth'
 
-import { useAppDispatch, useAppSelector } from '../../../app/hooks/redux-hooks'
+import { useAppDispatch, useAppSelector, useAuth } from '@hooks'
+import { authSelectors } from '@store'
+import { removeUser } from '@store/slices/userSlice'
 
 import { auth } from '../../../../firebase'
-import { useAuth } from '../../../app/hooks/use-auth'
-import { authSelectors } from '../../../store'
-import { removeUser } from '../../../store/slices/userSlice'
 import { Preloader } from '../Preloader'
 
 export const NavBar = () => {

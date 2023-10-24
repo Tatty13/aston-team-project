@@ -1,4 +1,5 @@
-import { UNSPLASH_API_ACCESS_KEY } from '../../constants/environment'
+import { UNSPLASH_API_ACCESS_KEY } from '@constants'
+
 import {
   Colors,
   IRequestOptions,

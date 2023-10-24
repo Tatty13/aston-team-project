@@ -19,7 +19,22 @@
     "removeComments": true,
     "outDir": "./dist/",
     "sourceMap": true,
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@components": ["./src/components"],
+      "@app/*": ["./src/app/*"],
+      "@api": ["./src/app/api"],
+      "@constants": ["./src/app/constants"],
+      "@HOC": ["./src/app/HOC"],
+      "@hooks": ["./src/app/hooks"],
+      "@vendor/*": ["./src/app/vendor/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@pages": ["./src/pages"],
+      "@store/*": ["./src/store/*"],
+      "@store": ["./src/store"],
+      "@types": ["./src/types"]
+    }
   },
   "include": ["src", "context", "src/types/images.d.ts"],
   "exclude": ["node_modules"]

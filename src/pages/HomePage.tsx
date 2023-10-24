@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 
-import { UnsplashApi } from '../app/api'
-import { useAppDispatch, useAppSelector } from '../app/hooks'
-import { replaceCards } from '../store/slices/cardsSlice'
-import { CardList, Header, Search } from '../components'
+import { UnsplashApi } from '@api'
+import { useAppDispatch, useAppSelector } from '@hooks'
+import { replaceCards } from '@store/slices/cardsSlice'
+import { CardList, Header, Search } from '@components'
 
 const HomePage = () => {
   const dispatch = useAppDispatch()

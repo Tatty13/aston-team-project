@@ -1,7 +1,8 @@
 import { useLayoutEffect, useState } from 'react'
 
+import { Card } from '@components'
+
 import styles from './CardInfoPage.module.scss'
-import { Card } from '../../components'
 
 function CardInfoPage() {
   const params = new URLSearchParams(window.location.search)

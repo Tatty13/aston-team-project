@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 
-import styles from './Card.module.scss'
+import favFilled from '@assets/icons/fav-filled.png'
+import fav from '@assets/icons/fav.png'
 
-import favFilled from '../../assets/icons/fav-filled.png'
-import fav from '../../assets/icons/fav.png'
+import styles from './Card.module.scss'
 
 // TODO: Катя, доделай пожалуйста propsType
 export const Card: FC<any> = ({

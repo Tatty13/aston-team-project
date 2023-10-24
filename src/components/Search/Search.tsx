@@ -1,7 +1,7 @@
 import { FC, useRef, useState } from 'react'
 
-import { useAppDispatch, useDebouncedFunction } from '../../app/hooks'
-import { setSearchValue } from '../../store/slices/searchSlice'
+import { useAppDispatch, useDebouncedFunction } from '@hooks'
+import { setSearchValue } from '@store/slices/searchSlice'
 
 import { CloseIcon } from '../ui/CloseIcon/CloseIcon'
 import styles from './Search.module.scss'

@@ -1,10 +1,11 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
+import { useAppDispatch } from '@hooks'
+import { Form } from '@components'
+import { setUser } from '@store/slices/userSlice'
+
 import { auth } from '../../../../firebase'
-import { useAppDispatch } from '../../../app/hooks'
-import { Form } from '../../../components'
-import { setUser } from '../../../store/slices/userSlice'
 
 const SignUp = () => {
   const dispatch = useAppDispatch()

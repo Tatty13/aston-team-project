@@ -1,4 +1,4 @@
-import { NumericRange } from '../../../types'
+import { NumericRange } from '@types'
 
 type AnsplashRequestMethods = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
