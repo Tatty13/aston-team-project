@@ -8,9 +8,9 @@ import { auth } from '../../../../firebase'
 import { useAuth } from '../../../app/hooks/use-auth'
 import { authSelectors } from '../../../store'
 import { removeUser } from '../../../store/slices/userSlice'
-import Preloader from '../../Preloader/Preloader'
+import { Preloader } from '../Preloader'
 
-const NavBar = () => {
+export const NavBar = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { isAuth, email } = useAuth()
@@ -46,5 +46,3 @@ const NavBar = () => {
     </nav>
   )
 }
-
-export default NavBar

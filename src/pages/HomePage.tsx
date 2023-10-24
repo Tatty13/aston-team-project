@@ -2,10 +2,8 @@ import { useEffect } from 'react'
 
 import { UnsplashApi } from '../app/api'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
-import { CardList } from '../components/CardList'
-import Header from '../components/Header/Header'
-import { Search } from '../components/Search'
 import { replaceCards } from '../store/slices/cardsSlice'
+import { CardList, Header, Search } from '../components'
 
 const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -33,4 +31,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export { HomePage }

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Login } from './Login/Login'
+import { Login } from './Login'
 import { useAuth } from '../../app/hooks'
 
 const LoginPage = () => {
@@ -22,4 +22,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export { LoginPage }

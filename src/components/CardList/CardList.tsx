@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import Card from '../Card'
+import { Card } from '../Card'
 import styles from './CardList.module.scss'
 import { ICardListProps } from './CardList.types'
 

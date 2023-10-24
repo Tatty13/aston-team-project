@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from 'react'
 
 import styles from './CardInfoPage.module.scss'
-import Card from '../../components/Card'
+import { Card } from '../../components'
 
 function CardInfoPage() {
   const params = new URLSearchParams(window.location.search)
@@ -63,4 +63,4 @@ function CardInfoPage() {
   )
 }
 
-export default CardInfoPage
+export { CardInfoPage }

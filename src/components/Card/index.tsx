@@ -7,7 +7,12 @@ import favFilled from '../../assets/icons/fav-filled.png'
 import fav from '../../assets/icons/fav.png'
 
 // TODO: Катя, доделай пожалуйста propsType
-const Card: FC<any> = ({ id, urls, description = 'title', liked_by_user }) => {
+export const Card: FC<any> = ({
+  id,
+  urls,
+  description = 'title',
+  liked_by_user,
+}) => {
   const [isLiked, setIsLiked] = React.useState(liked_by_user)
   const handleLikePost = () => {
     setIsLiked(() => !isLiked)
@@ -31,5 +36,3 @@ const Card: FC<any> = ({ id, urls, description = 'title', liked_by_user }) => {
     </div>
   )
 }
-
-export default Card

@@ -2,12 +2,14 @@ import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import './App.scss'
-import { useAppDispatch } from './app/hooks/redux-hooks'
-import CardInfoPage from './pages/CardInfoPage'
-import FavoritesPage from './pages/FavoritesPage'
-import HomePage from './pages/HomePage'
-import LoginPage from './pages/LoginPage/LoginPage'
-import RegisterPage from './pages/RegisterPage/RegisterPage'
+import { useAppDispatch } from './app/hooks'
+import {
+  CardInfoPage,
+  FavoritesPage,
+  HomePage,
+  LoginPage,
+  RegisterPage,
+} from './pages'
 import { checkAuth } from './store/actions/authAction'
 
 function App() {

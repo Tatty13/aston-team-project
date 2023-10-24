@@ -1,5 +1,3 @@
-const Preloader = () => {
+export const Preloader = () => {
   return <img src='' alt='Preloader' />
 }
-
-export default Preloader

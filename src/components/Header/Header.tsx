@@ -1,7 +1,5 @@
-import NavBar from '../ui/NavBar/NavBar'
+import { NavBar } from '../ui'
 
-const Header = () => {
+export const Header = () => {
   return <NavBar />
 }
-
-export default Header

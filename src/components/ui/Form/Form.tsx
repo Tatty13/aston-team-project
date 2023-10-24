@@ -7,7 +7,7 @@ interface FormProps {
   handleClick: (email: string, pass: string) => void
 }
 
-const Form: FC<FormProps> = ({ title, handleClick }) => {
+export const Form: FC<FormProps> = ({ title, handleClick }) => {
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
 
@@ -35,5 +35,3 @@ const Form: FC<FormProps> = ({ title, handleClick }) => {
     </form>
   )
 }
-
-export { Form }

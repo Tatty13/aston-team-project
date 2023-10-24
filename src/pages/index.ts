@@ -1,0 +1,5 @@
+export * from './CardInfoPage'
+export * from './LoginPage'
+export * from './RegisterPage'
+export * from './FavoritesPage'
+export * from './HomePage'
