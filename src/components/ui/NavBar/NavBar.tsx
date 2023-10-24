@@ -34,13 +34,13 @@ export const NavBar = () => {
     <nav>
       {isAuth ? (
         <>
-          <Link to='/favorites'> Избранное </Link>
+          <Link to='/favorites'>Favorites</Link>
           <button onClick={() => handleLogout()}>Log out from {email}</button>
         </>
       ) : (
         <>
-          <Link to='/login'>Войти</Link>
-          <Link to='/login'>Регистрация</Link>
+          <Link to='/login'>Login</Link>
+          <Link to='/register'>Register</Link>
         </>
       )}
     </nav>
