@@ -1,11 +1,18 @@
 import { Link } from 'react-router-dom'
-import { useAppDispatch } from '../../../hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks'
 import { useAuth } from '../../../hooks/use-auth'
 import { removeUser } from '../../../store/slices/userSlice'
+import Preloader from '../Preloader/Preloader'
+import { authSelectors } from '../../../store'
 
-const Navlink = () => {
+const NavBar = () => {
   const dispatch = useAppDispatch()
   const { isAuth, email } = useAuth()
+  const statusAuth = useAppSelector(authSelectors.status)
+
+  if (statusAuth !== 'SUCCESS') {
+    return <Preloader />
+  }
 
   return (
     <nav>
@@ -26,4 +33,4 @@ const Navlink = () => {
   )
 }
 
-export default Navlink
+export default NavBar

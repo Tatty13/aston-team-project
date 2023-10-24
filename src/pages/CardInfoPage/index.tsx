@@ -8,7 +8,6 @@ function CardInfoPage() {
   const cardId = params.get('id')
   const API_KEY = ''
   const urlImageById = `https://api.unsplash.com/photos/${cardId}?client_id=${API_KEY}`
-  console.log(API_KEY)
 
   const [imgData, setImgData] = React.useState<any>(null)
   const [similarImages, setSimilarImages] = React.useState<any>(null)

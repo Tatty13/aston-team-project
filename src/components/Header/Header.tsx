@@ -1,4 +1,4 @@
-import Navlink from '../ui/NavLink/NavLink'
+import Navlink from '../ui/NavBar/NavBar'
 
 const Header = () => {
   return <Navlink />
