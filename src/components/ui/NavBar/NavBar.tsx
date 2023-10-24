@@ -25,8 +25,9 @@ export const NavBar = () => {
   }
   const statusAuth = useAppSelector(authSelectors.status)
 
+  //TODO проверить, как будет себя вести при ошибке
   if (statusAuth !== 'SUCCESS') {
-    return <Preloader />
+    return <Preloader fullscreen />
   }
 
   return (
