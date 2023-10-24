@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 
-import { useAppSelector, useAppDispatch } from '../hooks'
+import { UnsplashApi } from '../app/api'
+import { useAppDispatch, useAppSelector } from '../app/hooks'
+import { CardList } from '../components/CardList'
 import Header from '../components/Header/Header'
-import { Search, CardList } from '../components'
-import { AnsplashApi } from '../api'
+import { Search } from '../components/Search'
 import { replaceCards } from '../store/slices/cardsSlice'
 
 const HomePage = () => {
@@ -13,7 +14,7 @@ const HomePage = () => {
 
   useEffect(() => {
     if (searchValue) {
-      AnsplashApi.searchPhoto({ query: searchValue })
+      UnsplashApi.searchPhoto({ query: searchValue })
         .then((res) => {
           dispatch(replaceCards(res.results))
         })

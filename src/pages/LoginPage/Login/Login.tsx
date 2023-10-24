@@ -1,10 +1,10 @@
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
-import { auth } from '../../../firebase'
-import { useAppDispatch } from '../../hooks/redux-hooks'
-import { setUser } from '../../store/slices/userSlice'
-import { Form } from './Form/Form'
+import { auth } from '../../../../firebase'
+import { useAppDispatch } from '../../../app/hooks/redux-hooks'
+import { Form } from '../../../components/ui/Form/Form'
+import { setUser } from '../../../store/slices/userSlice'
 
 const Login = () => {
   const dispatch = useAppDispatch()

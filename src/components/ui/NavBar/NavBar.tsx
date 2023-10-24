@@ -2,13 +2,13 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { signOut } from 'firebase/auth'
 
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks/redux-hooks'
 
 import { auth } from '../../../../firebase'
-import { useAuth } from '../../../hooks/use-auth'
+import { useAuth } from '../../../app/hooks/use-auth'
 import { authSelectors } from '../../../store'
 import { removeUser } from '../../../store/slices/userSlice'
-import Preloader from '../Preloader/Preloader'
+import Preloader from '../../Preloader/Preloader'
 
 const NavBar = () => {
   const dispatch = useAppDispatch()

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { onAuthStateChanged } from 'firebase/auth'
+
 import { auth } from '../../../firebase'
 import { setAuthUser, userNotFound } from '../slices/authSlice'
 

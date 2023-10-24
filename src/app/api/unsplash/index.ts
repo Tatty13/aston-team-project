@@ -1,21 +1,21 @@
-import { ANSPLASH_API_ACCESS_KEY } from '../../constants/enviroment'
+import { UNSPLASH_API_ACCESS_KEY } from '../../constants/environment'
 import {
+  Colors,
   IRequestOptions,
   OrdersList,
   OrdersSearch,
   Orientations,
-  Colors,
   RandomPhotosCountRange,
-} from './ansplash.types'
+} from './unsplash.types'
 
 const apiOptions = {
   baseURL: 'https://api.unsplash.com',
   headers: {
-    Authorization: `Client-ID ${ANSPLASH_API_ACCESS_KEY}`,
+    Authorization: `Client-ID ${UNSPLASH_API_ACCESS_KEY}`,
   },
 }
 
-const checkResponce = async (res: Response) =>
+const checkResponse = async (res: Response) =>
   res.ok ? res.json() : res.json().then((err) => Promise.reject(err?.errors[0]))
 
 const makeRequest = async ({ endPoint, body, method }: IRequestOptions) => {
@@ -31,7 +31,7 @@ const makeRequest = async ({ endPoint, body, method }: IRequestOptions) => {
     }
 
     const res = await fetch(`${baseURL}${endPoint}`, options)
-    return checkResponce(res)
+    return checkResponse(res)
   } catch (err) {
     return Promise.reject('Unexpected error from makeRequest')
   }
@@ -40,7 +40,7 @@ const makeRequest = async ({ endPoint, body, method }: IRequestOptions) => {
 const getQueryString = (params: object) => {
   const queries: string[] = []
 
-  for (let key in params) {
+  for (const key in params) {
     if (params[key]) {
       queries.push(`${key}=${params[key]}`)
     }

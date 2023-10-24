@@ -1,7 +1,7 @@
-import React from 'react'
+import { useLayoutEffect, useState } from 'react'
 
 import styles from './CardInfoPage.module.scss'
-import { Card } from '../../components/organisms'
+import Card from '../../components/Card'
 
 function CardInfoPage() {
   const params = new URLSearchParams(window.location.search)
@@ -9,10 +9,10 @@ function CardInfoPage() {
   const API_KEY = ''
   const urlImageById = `https://api.unsplash.com/photos/${cardId}?client_id=${API_KEY}`
 
-  const [imgData, setImgData] = React.useState<any>(null)
-  const [similarImages, setSimilarImages] = React.useState<any>(null)
+  const [imgData, setImgData] = useState<any>(null)
+  const [similarImages, setSimilarImages] = useState<any>(null)
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const getImgData = async () => {
       const response = await fetch(urlImageById)
       if (response.ok) {

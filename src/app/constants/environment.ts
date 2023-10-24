@@ -5,4 +5,4 @@ const BASE_URLS = {
 const NODE_ENV = process.env.NODE_ENV || ''
 export const CURRENT_BASE_URL = BASE_URLS[NODE_ENV]
 
-export const ANSPLASH_API_ACCESS_KEY = process.env.ANSPLASH_API_ACCESS_KEY || ''
+export const UNSPLASH_API_ACCESS_KEY = process.env.UNSPLASH_API_ACCESS_KEY || ''
