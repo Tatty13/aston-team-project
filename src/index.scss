@@ -7,14 +7,14 @@
 
   --font-rgb: 20 20 20;
   --background-rgb: 245 245 245;
-  --backround-secondary-rgb: 229 229 229;
+  --background-secondary-rgb: 229 229 229;
 
   --brand-rgb: 230 0 35;
 
   @media (prefers-color-scheme: dark) {
     --font-rgb: 225 225 225;
     --background-rgb: 20 20 20;
-    --backround-secondary-rgb: 38 38 38;
+    --background-secondary-rgb: 38 38 38;
   }
 }
 

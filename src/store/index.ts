@@ -1,9 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import userReducer from './slices/userSlice'
+
 import authReducer from './slices/authSlice'
+import cardsReducer from './slices/cardsSlice'
+import searchReducer from './slices/searchSlice'
+import userReducer from './slices/userSlice'
 
 const rootReducer = combineReducers({
   user: userReducer,
+  search: searchReducer,
+  cards: cardsReducer,
   auth: authReducer,
 })
 

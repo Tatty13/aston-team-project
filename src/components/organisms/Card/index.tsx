@@ -1,10 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import styles from './Card.module.scss'
 
 import fav from '../../../assets/icons/fav.png'
 import favFilled from '../../../assets/icons/fav-filled.png'
-import { Link } from 'react-router-dom'
 
 function Card({ id, urls, description = 'title', liked_by_user }) {
   const [isLiked, setIsLiked] = React.useState(liked_by_user)

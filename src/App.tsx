@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
+
 import './App.scss'
 import { useAppDispatch } from './hooks/redux-hooks'
 import { CardInfoPage } from './pages'
