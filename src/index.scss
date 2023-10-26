@@ -2,9 +2,6 @@
 @import url('@vendor/fonts/inter/fonts.css');
 
 :root {
-  --max-width: 1280px;
-  --min-width: 320px;
-
   --font-rgb: 20 20 20;
   --background-rgb: 245 245 245;
   --background-secondary-rgb: 229 229 229;
@@ -40,17 +37,4 @@ body {
   -moz-text-size-adjust: 100%;
   color: rgb(var(--font-rgb));
   background: rgb(var(--background-rgb));
-}
-
-#page {
-  margin: 0 auto;
-  max-width: var(--max-width);
-  min-width: var(--min-width);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex-grow: 1;
 }
