@@ -1,0 +1,14 @@
+.bar {
+  padding: 0.2rem;
+  margin: 0;
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  list-style: none;
+  background: rgb(var(--background-secondary-rgb) / 0.95);
+  border-radius: 1rem;
+}
+
+.visible {
+  display: flex;
+}
