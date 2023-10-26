@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from '@hooks'
 import { replaceCards } from '@store/slices/cardsSlice'
 import { CardList, Preloader, SearchWithSuggestion } from '@components'
 
+import styles from './HomePage.module.scss'
+
 const HomePage = () => {
   const dispatch = useAppDispatch()
   const { cardsData } = useAppSelector((state) => state.cards)
@@ -25,12 +27,11 @@ const HomePage = () => {
   }, [cardsData.length, dispatch])
 
   return (
-    <>
-      <h1>Welcome</h1>
+    <div className={styles.wrapper}>
       <SearchWithSuggestion />
       {isLoading && <Preloader />}
       {!isLoading && cardsData.length > 0 && <CardList cards={cardsData} />}
-    </>
+    </div>
   )
 }
 
