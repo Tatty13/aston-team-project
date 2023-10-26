@@ -18,7 +18,7 @@ const cardsSlice = createSlice({
       state.cardsData = action.payload
     },
     addCards(state, action: PayloadAction<any>) {
-      state.cardsData = state.cardsData.concat(action.payload)
+      state.cardsData.push(action.payload)
     },
     removeCards(state) {
       state.cardsData = []
