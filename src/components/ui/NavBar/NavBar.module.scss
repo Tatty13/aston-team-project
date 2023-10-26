@@ -22,8 +22,8 @@
     }
 
     &:hover::after {
-      width: 120%;
-      left: -10%;
+      width: 100%;
+      left: 0%;
     }
   }
 }
@@ -32,8 +32,8 @@ a.activeLink {
   pointer-events: none;
 
   &::after {
-    width: 120%;
-    left: -10%;
+    width: 100%;
+    left: 0%;
   }
 }
 
