@@ -1,0 +1,82 @@
+@import url('@vendor/fonts/Forum/Forum.css');
+
+$transition: 0.3s;
+$coefficient: 0.8;
+
+$brand: rgb(var(--brand-rgb));
+$brand-hover: rgb(var(--brand-secondary-rgb));
+
+.link {
+  $padding-vert: 0.6rem;
+  $padding-hor: 1rem;
+
+  padding: $padding-vert $padding-hor;
+  width: max-content;
+  min-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  color: rgb(var(--font-rgb));
+  color: $brand;
+  text-decoration: none;
+  border: 1px solid $brand;
+  background: var(--background-linear);
+  transition: $transition;
+
+  &:hover {
+    color: $brand-hover;
+    border-color: $brand-hover;
+  }
+
+  &:hover .title::after {
+    background: $brand-hover;
+  }
+
+  @media (max-width: 768px) {
+    padding: calc(#{$padding-vert} * #{$coefficient})
+      calc(#{$padding-hor} * #{$coefficient});
+  }
+}
+
+.title,
+.subtitle {
+  margin: 0;
+  font-family: 'Forum', Georgia, serif;
+  font-weight: 400;
+}
+
+.title {
+  $font-size: 1.2rem;
+
+  margin: 0;
+  position: relative;
+  font-size: $font-size;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 10%;
+    bottom: 0;
+    width: 80%;
+    height: 1px;
+    background: $brand;
+    transition: $transition;
+  }
+
+  @media (max-width: 768px) {
+    font-size: calc(#{$font-size} * #{$coefficient});
+  }
+}
+
+.subtitle {
+  $font-size: 0.6rem;
+
+  font-size: $font-size;
+  letter-spacing: 1px;
+  opacity: 0.8;
+
+  @media (max-width: 768px) {
+    font-size: calc(#{$font-size} * #{$coefficient});
+  }
+}

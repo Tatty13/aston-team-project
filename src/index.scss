@@ -9,12 +9,28 @@
   --background-rgb: 245 245 245;
   --background-secondary-rgb: 229 229 229;
 
-  --brand-rgb: 230 0 35;
+  --brand-rgb: 50 50 110; // rgb(50 50 110)
+  --brand-secondary-rgb: 95 95 186; // rgb(95 95 186)
+
+  --background-linear: linear-gradient(
+    rgb(214 214 237),
+    rgb(228 228 250),
+    rgb(176 176 232)
+  );
 
   @media (prefers-color-scheme: dark) {
     --font-rgb: 225 225 225;
     --background-rgb: 20 20 20;
     --background-secondary-rgb: 38 38 38;
+
+    --brand-rgb: 178 178 255; //rgb(178 178 255)
+    --brand-secondary-rgb: 157 157 255; //rgb(157 157 255)
+
+    --background-linear: linear-gradient(
+      rgb(46 46 71),
+      rgb(18 18 36),
+      rgb(34 34 82)
+    );
   }
 }
 
