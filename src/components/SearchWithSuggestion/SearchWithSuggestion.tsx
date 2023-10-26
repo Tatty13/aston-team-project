@@ -36,6 +36,24 @@ export const SearchWithSuggestion: FC = () => {
     }
   }, [searchValue])
 
+  useEffect(() => {
+    const closeSuggestionsBar = (evt: MouseEvent) => {
+      if (
+        isSuggestionsBarVisible &&
+        !(evt.target as HTMLElement).closest('section')
+      )
+        setIsSuggestionsBarVisible(false)
+    }
+
+    if (isSuggestionsBarVisible) {
+      document.addEventListener('click', closeSuggestionsBar)
+    }
+
+    return () => {
+      document.removeEventListener('click', closeSuggestionsBar)
+    }
+  }, [isSuggestionsBarVisible])
+
   return (
     <section className={style.section}>
       <Search onSubmit={handleSubmit} />
