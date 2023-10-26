@@ -6,15 +6,32 @@ import fav from '@assets/icons/fav.png'
 
 import styles from './Card.module.scss'
 
-// TODO: Катя, доделай пожалуйста propsType
-export const Card: FC<any> = ({
+interface ICard {
+  id: string
+  urls: IUrls
+  description: string
+  liked_by_user?: boolean
+}
+
+interface IUrls {
+  full: string
+  raw: string
+  regular: string
+  small: string
+  small_s3: string
+  thumb: string
+}
+
+export const Card: FC<ICard> = ({
   id,
   urls,
   description = 'title',
   liked_by_user,
 }) => {
-  const [isLiked, setIsLiked] = React.useState(liked_by_user)
-  const handleLikePost = () => {
+  const [isLiked, setIsLiked] = React.useState<boolean>(liked_by_user!)
+
+  const handleLikePost = (event: React.MouseEvent) => {
+    event.preventDefault()
     setIsLiked(() => !isLiked)
   }
 
@@ -27,10 +44,14 @@ export const Card: FC<any> = ({
           </button>
         </div>
         <div className={styles.cardPicture}>
-          <img src={urls.regular} alt='image' />
+          <img src={urls?.regular} alt='image' />
         </div>
         <div className={styles.cardBottom}>
-          <div className={styles.cardTitle}>{description}</div>
+          <div className={styles.cardTitle}>
+            {description && description.length > 100
+              ? `${description.slice(0, 100)}...`
+              : description}
+          </div>
         </div>
       </Link>
     </div>
