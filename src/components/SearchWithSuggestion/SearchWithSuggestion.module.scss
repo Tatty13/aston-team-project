@@ -1,0 +1,11 @@
+.section {
+  position: relative;
+
+  ul {
+    position: absolute;
+    top: 100%;
+    margin-top: 3px;
+    z-index: 2;
+    user-select: none;
+  }
+}

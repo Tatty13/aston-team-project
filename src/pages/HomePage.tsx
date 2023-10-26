@@ -3,37 +3,35 @@ import { useEffect, useState } from 'react'
 import { UnsplashApi } from '@api'
 import { useAppDispatch, useAppSelector } from '@hooks'
 import { replaceCards } from '@store/slices/cardsSlice'
-import { CardList, Header, Preloader, Search } from '@components'
+import { CardList, Header, Preloader, SearchWithSuggestion } from '@components'
 
 const HomePage = () => {
   const dispatch = useAppDispatch()
-  const { searchValue } = useAppSelector((state) => state.search)
   const { cardsData } = useAppSelector((state) => state.cards)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    if (searchValue) {
+    if (!cardsData.length) {
       setIsLoading(true)
-      UnsplashApi.searchPhoto({ query: searchValue })
-        .then((res) => {
-          dispatch(replaceCards(res.results))
+      UnsplashApi.getRandomPhoto({ count: 20 })
+        .then((data) => {
+          dispatch(replaceCards(data))
         })
-        .catch((err) => console.log(err))
+        .catch(console.log)
         .finally(() => {
           setIsLoading(false)
         })
     }
-  }, [searchValue, dispatch])
+  }, [cardsData.length, dispatch])
 
   return (
-    <div>
+    <>
       <Header />
       <h1>Welcome</h1>
-
-      <Search />
+      <SearchWithSuggestion />
       {isLoading && <Preloader />}
       {!isLoading && cardsData.length > 0 && <CardList cards={cardsData} />}
-    </div>
+    </>
   )
 }
 
