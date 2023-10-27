@@ -1,7 +1,7 @@
+import { checkAuth } from '@store/actions/authAction'
 import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import './App.scss'
 import { useAppDispatch } from '@hooks'
 import {
   CardInfoPage,
@@ -10,7 +10,8 @@ import {
   LoginPage,
   RegisterPage,
 } from '@pages'
-import { checkAuth } from '@store/actions/authAction'
+
+import './App.scss'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -25,7 +26,11 @@ function App() {
       <Route path='/login' element={<LoginPage />} />
       <Route path='/register' element={<RegisterPage />} />
       <Route path='/card' element={<CardInfoPage />} />
-      <Route path='/favorites' element={<FavoritesPage />} />
+      <Route
+        path='/favorites'
+        // element={<ProtectedRoute component={FavoritesPage} />}
+        element={<FavoritesPage />}
+      />
     </Routes>
   )
 }

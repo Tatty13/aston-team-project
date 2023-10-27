@@ -11,11 +11,11 @@ import { store } from './store'
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-  <StrictMode>
-    <Provider store={store}>
-      <BrowserRouter basename={CURRENT_BASE_URL}>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  </StrictMode>
+  // <StrictMode>
+  <Provider store={store}>
+    <BrowserRouter basename={CURRENT_BASE_URL}>
+      <App />
+    </BrowserRouter>
+  </Provider>
+  // </StrictMode>
 )
