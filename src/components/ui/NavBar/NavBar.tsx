@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { signOut } from 'firebase/auth'
 
@@ -8,6 +8,7 @@ import { removeUser } from '@store/slices/userSlice'
 
 import { auth } from '../../../../firebase'
 import { Preloader } from '../Preloader'
+import styles from './NavBar.module.scss'
 
 export const NavBar = () => {
   const dispatch = useAppDispatch()
@@ -30,18 +31,30 @@ export const NavBar = () => {
     return <Preloader fullscreen />
   }
 
+  const handleActiveLink = ({ isActive }) => (isActive ? styles.activeLink : '')
+
   return (
-    <nav>
+    <nav className={styles.menu}>
       {isAuth ? (
         <>
-          <Link to='/favorites'>Favorites</Link>
-          <Link to='/history'>History</Link>
-          <button onClick={() => handleLogout()}>Log out from {email}</button>
+          <NavLink to='/favorites' className={handleActiveLink}>
+            Favorites
+          </NavLink>
+          <NavLink to='/history' className={handleActiveLink}>
+            History
+          </NavLink>
+          <button onClick={() => handleLogout()} className={styles.logoutBtn}>
+            Log out from <span>{email}</span>
+          </button>
         </>
       ) : (
         <>
-          <Link to='/login'>Login</Link>
-          <Link to='/register'>Register</Link>
+          <NavLink to='/login' className={handleActiveLink}>
+            Login
+          </NavLink>
+          <NavLink to='/register' className={handleActiveLink}>
+            Register
+          </NavLink>
         </>
       )}
     </nav>
