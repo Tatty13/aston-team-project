@@ -23,6 +23,16 @@ export const SearchWithSuggestion: FC = () => {
         dispatch(replaceCards(res.results))
       })
       .catch(console.log)
+
+    if (localStorage.getItem('history')) {
+      const history = JSON.parse(localStorage.getItem('history') || '')
+      history.unshift(searchValue)
+      localStorage.setItem('history', JSON.stringify(history))
+    } else {
+      let history: string[] = []
+      history.unshift(searchValue || '')
+      localStorage.setItem('history', JSON.stringify(history))
+    }
   }
 
   useEffect(() => {
@@ -35,6 +45,24 @@ export const SearchWithSuggestion: FC = () => {
         .catch(console.log)
     }
   }, [searchValue])
+
+  useEffect(() => {
+    const closeSuggestionsBar = (evt: MouseEvent) => {
+      if (
+        isSuggestionsBarVisible &&
+        !(evt.target as HTMLElement).closest('section')
+      )
+        setIsSuggestionsBarVisible(false)
+    }
+
+    if (isSuggestionsBarVisible) {
+      document.addEventListener('click', closeSuggestionsBar)
+    }
+
+    return () => {
+      document.removeEventListener('click', closeSuggestionsBar)
+    }
+  }, [isSuggestionsBarVisible])
 
   return (
     <section className={style.section}>

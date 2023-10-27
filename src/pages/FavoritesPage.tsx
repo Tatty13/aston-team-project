@@ -1,5 +1,5 @@
 import { useAppSelector } from '@src/app/hooks'
-import { CardList, Header, Preloader } from '@src/components'
+import { CardList, Preloader } from '@src/components'
 import { authSelectors } from '@src/store'
 import { collection, getDocs } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
@@ -18,12 +18,6 @@ const FavoritesPage = () => {
         collection(db, `users/${uid}/favorites`)
       )
       return querySnapshot.docs.map((doc) => doc.data())
-      // const filteredData = fetchedData.filter((item, index, self) => {
-      //   return (
-      //     item.uid === uid &&
-      //     self.findIndex((el) => el.id === item.id) === index
-      //   )
-      // })
     }
 
     fetchData()
@@ -36,7 +30,6 @@ const FavoritesPage = () => {
 
   return (
     <>
-      <Header />
       {isLoading && <Preloader />}
       {!isLoading && data.length > 0 && <CardList cards={data} />}
       {!isLoading && data.length === 0 && <h1>You have no favorites</h1>}

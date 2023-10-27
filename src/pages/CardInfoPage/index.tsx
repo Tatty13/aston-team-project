@@ -1,64 +1,82 @@
 import { useLayoutEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { Card } from '@components'
+
+import { getPhotoById, getRandomPhoto } from '@src/app/api/unsplash'
 
 import styles from './CardInfoPage.module.scss'
 
 function CardInfoPage() {
-  const params = new URLSearchParams(window.location.search)
-  const cardId = params.get('id')
-  const API_KEY = ''
-  const urlImageById = `https://api.unsplash.com/photos/${cardId}?client_id=${API_KEY}`
+  const location = useLocation()
 
   const [imgData, setImgData] = useState<any>(null)
   const [similarImages, setSimilarImages] = useState<any>(null)
 
   useLayoutEffect(() => {
-    const getImgData = async () => {
-      const response = await fetch(urlImageById)
-      if (response.ok) {
-        const photos = await response.json()
-        setImgData(photos)
+    const params = new URLSearchParams(window.location.search)
+    const id = params.get('id')
+    getImgData(id)
+  }, [location])
 
-        const topic = photos.topics[0].id
-        const urlImageByTopic = `https://api.unsplash.com/photos/random?client_id=${API_KEY}&topics=${topic}&orientation=portrait&count=10`
+  const getImgData = async (cardId) => {
+    console.log(cardId)
+    const response = await getPhotoById(cardId!)
+    console.log(response)
+    setImgData(response)
 
-        const responseOfSimilarsPhotos = await fetch(urlImageByTopic)
-        const similar = await responseOfSimilarsPhotos.json()
-        setSimilarImages(similar)
-      } else {
-        console.log('Error HTTP: ' + response.status)
-      }
+    if (localStorage.getItem('cardshistory')) {
+      const history = JSON.parse(localStorage.getItem('cardshistory') || '')
+      history.unshift(response)
+      localStorage.setItem('cardshistory', JSON.stringify(history))
+    } else {
+      const history: string[] = []
+      history.unshift(response || '')
+      localStorage.setItem('cardshistory', JSON.stringify(history))
     }
-    getImgData()
-  }, [])
+
+    const topic = response?.topics[0]?.id
+
+    const responseOfSimilarsPhotos = await getRandomPhoto({
+      topics: topic,
+      orientation: 'portrait',
+      count: 20,
+    })
+
+    setSimilarImages(responseOfSimilarsPhotos)
+  }
 
   return (
     <div className={styles.cardPage}>
       {imgData && (
         <div className={styles.cardInfo}>
           <div className={styles.cardImage}>
-            <img src={imgData.urls.regular} alt='' />
+            <img src={imgData?.urls?.regular} alt='' />
           </div>
           <div className={styles.cardDescription}>
             <div className={styles.title}>
-              <h1>{imgData.description}</h1>
+              <h1>{imgData?.description}</h1>
             </div>
-            <div className={styles.author}>{imgData.user.name}</div>
-            <div className={styles.location}>
-              {imgData.location.country}, {imgData.location.city}
+            <div className={styles.dopinfo}>
+              <div className={styles.author}>{imgData?.user?.name}</div>
+              <div className={styles.location}>
+                {imgData?.location?.country}
+                {imgData.location.city ? `, ${imgData.location.city}` : ''}
+              </div>
             </div>
           </div>
         </div>
       )}
       <div className={styles.othersPosts}>
         <h1>You might like it</h1>
-        <div className={styles.posts}>
+        <ul className={styles.posts}>
           {similarImages &&
             similarImages.map((image, index) => (
-              <Card key={image.id} {...image} />
+              <li key={image.id}>
+                <Card key={image.id} {...image} />
+              </li>
             ))}
-        </div>
+        </ul>
       </div>
     </div>
   )

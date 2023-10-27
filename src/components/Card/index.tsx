@@ -10,16 +10,34 @@ import fav from '@assets/icons/fav.png'
 import { db } from '../../../firebase'
 import styles from './Card.module.scss'
 
-export const Card: FC<any> = ({
+interface ICard {
+  id: string
+  urls: IUrls
+  alt_description: string
+  liked_by_user?: boolean
+}
+
+interface IUrls {
+  full: string
+  raw: string
+  regular: string
+  small: string
+  small_s3: string
+  thumb: string
+}
+
+export const Card: FC<ICard> = ({
   id,
   urls,
-  description = 'title',
+  alt_description,
   liked_by_user,
 }) => {
-  const [isLiked, setIsLiked] = useState(liked_by_user)
+  const [isLiked, setIsLiked] = useState<boolean>(liked_by_user!)
+
   const uid = useAppSelector(authSelectors.uid)
 
-  const handleLikePost = () => {
+  const handleLikePost = (event: React.MouseEvent) => {
+    event.preventDefault()
     setIsLiked(() => !isLiked)
   }
 
@@ -28,7 +46,7 @@ export const Card: FC<any> = ({
       const cardData = {
         id,
         urls,
-        description: description || '',
+        alt_description: alt_description || '',
         liked_by_user: true,
         uid,
       }
@@ -62,12 +80,12 @@ export const Card: FC<any> = ({
             className={styles.favBtn}
             onClick={
               isLiked
-                ? () => {
-                    handleLikePost()
+                ? (e) => {
+                    handleLikePost(e)
                     // removeFavorites()
                   }
-                : () => {
-                    handleLikePost()
+                : (e) => {
+                    handleLikePost(e)
                     addFavorites()
                   }
             }
@@ -76,10 +94,14 @@ export const Card: FC<any> = ({
           </button>
         </div>
         <div className={styles.cardPicture}>
-          <img src={urls.regular} alt='image' />
+          <img src={urls?.regular} alt='image' />
         </div>
         <div className={styles.cardBottom}>
-          <div className={styles.cardTitle}>{description}</div>
+          <div className={styles.cardTitle}>
+            {alt_description && alt_description.length > 100
+              ? `${alt_description.slice(0, 100)}...`
+              : alt_description}
+          </div>
         </div>
       </Link>
     </div>

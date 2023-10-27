@@ -45,37 +45,44 @@
 
     .cardDescription {
       padding: 20px;
+      word-wrap: break-word;
 
       .title {
-        color: black;
+        color: var(--font-rgb);
 
         h1 {
           margin: 0;
         }
       }
 
-      .author {
-        color: darkgray;
-        margin-bottom: 20px;
+      .dopinfo {
+        margin-top: 20px;
 
-        &::before {
-          content: '👤';
-          margin: 5px;
+        .author {
+          color: darkgray;
+          padding: 5px 0;
+
+          &::before {
+            content: '👤';
+            margin: 5px;
+          }
         }
-      }
 
-      .location {
-        color: darkgray;
+        .location {
+          color: darkgray;
+          padding: 5px 0;
 
-        &::before {
-          content: '📍';
-          margin: 5px;
+          &::before {
+            content: '📍';
+            margin: 5px;
+          }
         }
       }
     }
   }
 
   .othersPosts {
+    width: 100%;
     margin: 0 30px;
     display: flex;
     flex-direction: column;
@@ -86,10 +93,14 @@
     }
 
     .posts {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 240px);
       justify-content: center;
+      gap: 1rem;
+      list-style: none;
     }
   }
 }

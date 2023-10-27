@@ -3,12 +3,16 @@ import { useEffect, useState } from 'react'
 import { UnsplashApi } from '@api'
 import { useAppDispatch, useAppSelector } from '@hooks'
 import { replaceCards } from '@store/slices/cardsSlice'
-import { CardList, Header, Preloader, SearchWithSuggestion } from '@components'
+import { CardList, Preloader, SearchWithSuggestion } from '@components'
+import { usePagination } from '@src/app/hooks/pagination'
+
+import styles from './HomePage.module.scss'
 
 const HomePage = () => {
   const dispatch = useAppDispatch()
   const { cardsData } = useAppSelector((state) => state.cards)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  usePagination()
 
   useEffect(() => {
     if (!cardsData.length) {
@@ -25,13 +29,11 @@ const HomePage = () => {
   }, [cardsData.length, dispatch])
 
   return (
-    <>
-      <Header />
-      <h1>Welcome</h1>
+    <div className={styles.wrapper}>
       <SearchWithSuggestion />
       {isLoading && <Preloader />}
       {!isLoading && cardsData.length > 0 && <CardList cards={cardsData} />}
-    </>
+    </div>
   )
 }
 

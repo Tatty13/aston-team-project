@@ -20,11 +20,15 @@ const cardsSlice = createSlice({
     addCards(state, action: PayloadAction<any>) {
       state.cardsData.push(action.payload)
     },
+    addMoreCards(state, action: PayloadAction<any>) {
+      state.cardsData = [...state.cardsData, ...action.payload]
+    },
     removeCards(state) {
       state.cardsData = []
     },
   },
 })
 
-export const { replaceCards, addCards, removeCards } = cardsSlice.actions
+export const { replaceCards, addCards, addMoreCards, removeCards } =
+  cardsSlice.actions
 export default cardsSlice.reducer
