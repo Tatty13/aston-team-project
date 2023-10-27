@@ -23,6 +23,16 @@ export const SearchWithSuggestion: FC = () => {
         dispatch(replaceCards(res.results))
       })
       .catch(console.log)
+
+    if (localStorage.getItem('history')) {
+      const history = JSON.parse(localStorage.getItem('history') || '')
+      history.unshift(searchValue)
+      localStorage.setItem('history', JSON.stringify(history))
+    } else {
+      let history: string[] = []
+      history.unshift(searchValue || '')
+      localStorage.setItem('history', JSON.stringify(history))
+    }
   }
 
   useEffect(() => {

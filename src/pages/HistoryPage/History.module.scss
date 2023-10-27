@@ -1,0 +1,45 @@
+.historyPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .history {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 240px);
+    justify-content: center;
+    gap: 1rem;
+    list-style: none;
+  }
+
+  .search {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    .searchItem {
+      display: flex;
+      align-items: center;
+      height: 40px;
+      padding: 5px 10px;
+      list-style: none;
+      font-size: 16px;
+      border-radius: 10px;
+      background: rgb(var(--background-secondary-rgb));
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgb(var(--background-secondary-rgb) / 0.5);
+      }
+    }
+  }
+}

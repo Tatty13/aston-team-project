@@ -35,6 +35,7 @@ export const NavBar = () => {
       {isAuth ? (
         <>
           <Link to='/favorites'>Favorites</Link>
+          <Link to='/history'>History</Link>
           <button onClick={() => handleLogout()}>Log out from {email}</button>
         </>
       ) : (

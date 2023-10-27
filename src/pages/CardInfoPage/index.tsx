@@ -24,6 +24,16 @@ function CardInfoPage() {
     console.log(response)
     setImgData(response)
 
+    if (localStorage.getItem('cardshistory')) {
+      const history = JSON.parse(localStorage.getItem('cardshistory') || '')
+      history.unshift(response)
+      localStorage.setItem('cardshistory', JSON.stringify(history))
+    } else {
+      let history: string[] = []
+      history.unshift(response || '')
+      localStorage.setItem('cardshistory', JSON.stringify(history))
+    }
+
     const topic = response?.topics[0]?.id
 
     const responseOfSimilarsPhotos = await getRandomPhoto({
