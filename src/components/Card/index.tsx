@@ -9,7 +9,7 @@ import styles from './Card.module.scss'
 interface ICard {
   id: string
   urls: IUrls
-  description: string
+  alt_description: string
   liked_by_user?: boolean
 }
 
@@ -25,7 +25,7 @@ interface IUrls {
 export const Card: FC<ICard> = ({
   id,
   urls,
-  description = 'title',
+  alt_description,
   liked_by_user,
 }) => {
   const [isLiked, setIsLiked] = React.useState<boolean>(liked_by_user!)
@@ -48,9 +48,9 @@ export const Card: FC<ICard> = ({
         </div>
         <div className={styles.cardBottom}>
           <div className={styles.cardTitle}>
-            {description && description.length > 100
-              ? `${description.slice(0, 100)}...`
-              : description}
+            {alt_description && alt_description.length > 100
+              ? `${alt_description.slice(0, 100)}...`
+              : alt_description}
           </div>
         </div>
       </Link>
