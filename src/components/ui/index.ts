@@ -1,5 +1,6 @@
 export * from './CloseIcon'
 export * from './Form'
+export * from './Logo'
 export * from './NavBar'
 export * from './Preloader'
 export * from './SearchIcon'
