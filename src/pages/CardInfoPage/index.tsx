@@ -3,8 +3,9 @@ import { useLocation } from 'react-router-dom'
 
 import { Card } from '@components'
 
-import styles from './CardInfoPage.module.scss'
 import { getPhotoById, getRandomPhoto } from '@src/app/api/unsplash'
+
+import styles from './CardInfoPage.module.scss'
 
 function CardInfoPage() {
   const location = useLocation()
@@ -29,7 +30,7 @@ function CardInfoPage() {
       history.unshift(response)
       localStorage.setItem('cardshistory', JSON.stringify(history))
     } else {
-      let history: string[] = []
+      const history: string[] = []
       history.unshift(response || '')
       localStorage.setItem('cardshistory', JSON.stringify(history))
     }

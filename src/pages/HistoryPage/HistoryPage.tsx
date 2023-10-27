@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
-import styles from './History.module.scss'
 import { Link, useNavigate } from 'react-router-dom'
 import { Card } from '@src/components'
 import { UnsplashApi } from '@src/app/api'
 import { useAppDispatch, useAppSelector } from '@src/app/hooks'
 import { replaceCards } from '@src/store/slices/cardsSlice'
+
+import styles from './History.module.scss'
 
 function HistoryPage() {
   const dispatch = useAppDispatch()
@@ -36,7 +37,7 @@ function HistoryPage() {
   // change key from index to id
   return (
     <div className={styles.historyPage}>
-      <h2>Cards you've looked at</h2>
+      <h2>Cards you&apos;ve looked at</h2>
       <ul className={styles.history}>
         {cardshistory &&
           cardshistory.map((card: any, index) => (
