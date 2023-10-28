@@ -1,7 +1,7 @@
 import { useAppSelector } from '@src/app/hooks'
 import { CardList, Preloader } from '@src/components'
 import { authSelectors } from '@src/store'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 
 import { db } from '../../firebase'
@@ -13,19 +13,16 @@ const FavoritesPage = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    const fetchData = async (): Promise<Array<object>> => {
-      const querySnapshot = await getDocs(
-        collection(db, `users/${uid}/favorites`)
-      )
-      return querySnapshot.docs.map((doc) => doc.data())
-    }
-
-    fetchData()
-      .then((data) => {
-        setData(data)
+    const unsubscribe = onSnapshot(
+      collection(db, `users/${uid}/favorites`),
+      (snapshot) => {
+        const newData = snapshot.docs.map((doc) => doc.data())
+        setData(newData)
         setIsLoading(false)
-      })
-      .catch((error) => console.error('Error fetching data:', error))
+      }
+    )
+
+    return () => unsubscribe()
   }, [uid])
 
   return (
