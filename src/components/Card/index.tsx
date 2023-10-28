@@ -1,6 +1,6 @@
 import { useAppSelector } from '@src/app/hooks'
 import { authSelectors } from '@src/store'
-import { addDoc, collection } from 'firebase/firestore'
+import { deleteDoc, doc, setDoc } from 'firebase/firestore'
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -26,14 +26,9 @@ interface IUrls {
   thumb: string
 }
 
-export const Card: FC<ICard> = ({
-  id,
-  urls,
-  alt_description,
-  liked_by_user,
-}) => {
+export const Card: FC<ICard> = (props) => {
+  const { id, urls, alt_description, liked_by_user } = props
   const [isLiked, setIsLiked] = useState<boolean>(liked_by_user!)
-
   const uid = useAppSelector(authSelectors.uid)
 
   const handleLikePost = (event: React.MouseEvent) => {
@@ -43,34 +38,18 @@ export const Card: FC<ICard> = ({
 
   const addFavorites = async () => {
     try {
-      const cardData = {
-        id,
-        urls,
-        alt_description: alt_description || '',
+      await setDoc(doc(db, `users/${uid}/favorites`, id), {
+        ...props,
         liked_by_user: true,
-        uid,
-      }
-      await addDoc(collection(db, `users/${uid}/favorites/`), cardData)
+      })
     } catch (error) {
       console.error('Ошибка при добавлении карточки в избранное: ', error)
     }
   }
 
-  // TODO: Доделать функцию удаления избранного
-  // const removeFavorites = async () => {
-  //   try {
-  //     const querySnapshot = await getDocs(
-  //       collection(db, `users/${uid}/favorites`)
-  //     )
-  //     const documentIds = querySnapshot.docs.map((doc) => doc.data().id)
-
-  //     documentIds.forEach((cardId) => {
-  //       if (cardId === id) deleteDoc(doc(db, `users/${uid}/favorites`, cardId))
-  //     })
-  //   } catch (error) {
-  //     console.error('Error removing favorites:', error)
-  //   }
-  // }
+  const removeFavorites = async (cardId: string) => {
+    await deleteDoc(doc(db, `users/${uid}/favorites`, cardId))
+  }
 
   return (
     <div className={styles.card}>
@@ -82,7 +61,7 @@ export const Card: FC<ICard> = ({
               isLiked
                 ? (e) => {
                     handleLikePost(e)
-                    // removeFavorites()
+                    removeFavorites(id)
                   }
                 : (e) => {
                     handleLikePost(e)
