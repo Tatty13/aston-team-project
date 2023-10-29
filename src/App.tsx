@@ -10,6 +10,7 @@ import {
   LoginPage,
   RegisterPage,
   HistoryPage,
+  NotFoundPage,
 } from '@pages'
 import { checkAuth } from '@store/actions/authAction'
 import { Layout } from '@components'
@@ -36,6 +37,7 @@ function App() {
           path='/history'
           element={<ProtectedRoute component={HistoryPage} />}
         />
+        <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </Layout>
   )
