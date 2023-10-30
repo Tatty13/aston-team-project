@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react'
+import { useCallback, useLayoutEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAppSelector } from '@src/app/hooks'
 import { authSelectors } from '@src/store'
@@ -17,67 +17,72 @@ function CardInfoPage() {
   const [imgData, setImgData] = useState<any>(null)
   const [similarImages, setSimilarImages] = useState<any>(null)
 
+  const getImgData = useCallback(
+    async (cardId) => {
+      const response = await getPhotoById(cardId!)
+      setImgData(response)
+
+      try {
+        await setDoc(doc(db, `users/${uid}/cardsHistory`, cardId), {
+          ...response,
+        })
+      } catch (error) {
+        console.error('Ошибка при добавлении карточки в историю: ', error)
+      }
+
+      const topic = response?.topics[0]?.id
+
+      const responseOfSimilarsPhotos = await getRandomPhoto({
+        topics: topic,
+        orientation: 'portrait',
+        count: 20,
+      })
+
+      setSimilarImages(responseOfSimilarsPhotos)
+    },
+    [uid]
+  )
+
   useLayoutEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const id = params.get('id')
     getImgData(id)
-  }, [location])
-
-  const getImgData = async (cardId) => {
-    const response = await getPhotoById(cardId!)
-    setImgData(response)
-
-    try {
-      await setDoc(doc(db, `users/${uid}/cardsHistory`, cardId), {
-        ...response,
-      })
-    } catch (error) {
-      console.error('Ошибка при добавлении карточки в историю: ', error)
-    }
-
-    const topic = response?.topics[0]?.id
-
-    const responseOfSimilarsPhotos = await getRandomPhoto({
-      topics: topic,
-      orientation: 'portrait',
-      count: 20,
-    })
-
-    setSimilarImages(responseOfSimilarsPhotos)
-  }
+  }, [location, getImgData])
 
   return (
     <div className={styles.cardPage}>
       {imgData && (
-        <div className={styles.cardInfo}>
+        <section className={styles.cardInfo}>
           <div className={styles.cardImage}>
             <img src={imgData?.urls?.regular} alt='' />
           </div>
           <div className={styles.cardDescription}>
             <div className={styles.title}>
-              <h1>{imgData?.description}</h1>
+              <h2>{imgData?.description}</h2>
             </div>
-            <div className={styles.dopinfo}>
+            <div className={styles.extraInfo}>
               <div className={styles.author}>{imgData?.user?.name}</div>
               <div className={styles.location}>
                 {imgData?.location?.country}
-                {imgData.location.city ? `, ${imgData.location.city}` : ''}
+                {imgData.location.city
+                  ? `, ${imgData.location.city}`
+                  : 'Unknown location'}
               </div>
             </div>
           </div>
-        </div>
+        </section>
       )}
-      <div className={styles.othersPosts}>
-        <h1>You might like it</h1>
+      <section className={styles.othersPosts}>
+        <h2>You might like it</h2>
         <ul className={styles.posts}>
           {similarImages &&
-            similarImages.map((image, index) => (
+            similarImages.map((image) => (
               <li key={image.id}>
                 <Card key={image.id} {...image} />
               </li>
             ))}
         </ul>
-      </div>
+      </section>
     </div>
   )
 }
