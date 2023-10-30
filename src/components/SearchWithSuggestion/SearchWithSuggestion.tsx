@@ -7,9 +7,9 @@ import { replaceCards } from '@src/store/slices/cardsSlice'
 import { doc, setDoc } from 'firebase/firestore'
 import { authSelectors } from '@src/store'
 
-import { db } from '../../../firebase'
-
 import { setTotalPages } from '@src/store/slices/searchSlice'
+
+import { db } from '../../../firebase'
 
 import { Search } from '../Search'
 import { SuggestionsBar } from '../SuggestionsBar'
@@ -31,7 +31,7 @@ export const SearchWithSuggestion: FC = () => {
       per_page: countPerPage,
       page: 1,
     })
-      .then(({results, total_pages}) => {
+      .then(({ results, total_pages }) => {
         dispatch(replaceCards(results))
         dispatch(setTotalPages(total_pages))
       })
@@ -43,6 +43,7 @@ export const SearchWithSuggestion: FC = () => {
       })
     } catch (error) {
       console.error('Ошибка при добавлении параметра поиска: ', error)
+    }
   }
 
   useEffect(() => {
