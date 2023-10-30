@@ -7,7 +7,7 @@ export const Logo: FC = () => {
   return (
     <Link to='/' className={styles.link}>
       <h1 className={styles.title}>Photo Gallery</h1>
-      <p className={styles.subtitle}>find your photo</p>
+      <p className={styles.subtitle}>find your mood</p>
     </Link>
   )
 }

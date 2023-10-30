@@ -1,14 +1,18 @@
 import { useLayoutEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-
+import { useAppSelector } from '@src/app/hooks'
+import { authSelectors } from '@src/store'
 import { Card } from '@components'
-
 import { getPhotoById, getRandomPhoto } from '@src/app/api/unsplash'
+import { doc, setDoc } from 'firebase/firestore'
+
+import { db } from '../../../firebase'
 
 import styles from './CardInfoPage.module.scss'
 
 function CardInfoPage() {
   const location = useLocation()
+  const uid = useAppSelector(authSelectors.uid)
 
   const [imgData, setImgData] = useState<any>(null)
   const [similarImages, setSimilarImages] = useState<any>(null)
@@ -20,19 +24,15 @@ function CardInfoPage() {
   }, [location])
 
   const getImgData = async (cardId) => {
-    console.log(cardId)
     const response = await getPhotoById(cardId!)
-    console.log(response)
     setImgData(response)
 
-    if (localStorage.getItem('cardshistory')) {
-      const history = JSON.parse(localStorage.getItem('cardshistory') || '')
-      history.unshift(response)
-      localStorage.setItem('cardshistory', JSON.stringify(history))
-    } else {
-      const history: string[] = []
-      history.unshift(response || '')
-      localStorage.setItem('cardshistory', JSON.stringify(history))
+    try {
+      await setDoc(doc(db, `users/${uid}/cardsHistory`, cardId), {
+        ...response,
+      })
+    } catch (error) {
+      console.error('Ошибка при добавлении карточки в историю: ', error)
     }
 
     const topic = response?.topics[0]?.id

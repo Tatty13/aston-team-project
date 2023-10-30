@@ -4,34 +4,45 @@ import { UnsplashApi } from '@src/app/api'
 import { useAppDispatch, useAppSelector } from '@src/app/hooks'
 import { replaceCards } from '@src/store/slices/cardsSlice'
 
+import { doc, setDoc } from 'firebase/firestore'
+import { authSelectors } from '@src/store'
+
+import { setTotalPages } from '@src/store/slices/searchSlice'
+
+import { db } from '../../../firebase'
+
 import { Search } from '../Search'
 import { SuggestionsBar } from '../SuggestionsBar'
 import style from './SearchWithSuggestion.module.scss'
 
 export const SearchWithSuggestion: FC = () => {
   const dispatch = useAppDispatch()
+  const uid = useAppSelector(authSelectors.uid)
 
   const [isSuggestionsBarVisible, setIsSuggestionsBarVisible] = useState(false)
   const [suggestions, setSuggestions] = useState<any[]>([])
 
-  const { searchValue } = useAppSelector((state) => state.search)
+  const { searchValue, countPerPage } = useAppSelector((state) => state.search)
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsSuggestionsBarVisible(false)
-    UnsplashApi.searchPhoto({ query: searchValue, per_page: 20 })
-      .then((res) => {
-        dispatch(replaceCards(res.results))
+    UnsplashApi.searchPhoto({
+      query: searchValue,
+      per_page: countPerPage,
+      page: 1,
+    })
+      .then(({ results, total_pages }) => {
+        dispatch(replaceCards(results))
+        dispatch(setTotalPages(total_pages))
       })
       .catch(console.log)
 
-    if (localStorage.getItem('history')) {
-      const history = JSON.parse(localStorage.getItem('history') || '')
-      history.unshift(searchValue)
-      localStorage.setItem('history', JSON.stringify(history))
-    } else {
-      let history: string[] = []
-      history.unshift(searchValue || '')
-      localStorage.setItem('history', JSON.stringify(history))
+    try {
+      await setDoc(doc(db, `users/${uid}/searchHistory`, searchValue), {
+        searchValue,
+      })
+    } catch (error) {
+      console.error('Ошибка при добавлении параметра поиска: ', error)
     }
   }
 

@@ -86,6 +86,7 @@ module.exports = {
     filename: 'js/[chunkhash].js',
     path: PATHS.dist,
     clean: true,
+    publicPath: '/',
   },
   plugins: getPlugins(),
   module: {
