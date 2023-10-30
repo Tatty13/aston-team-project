@@ -3,10 +3,13 @@ import { FC, useEffect, useState } from 'react'
 import { UnsplashApi } from '@src/app/api'
 import { useAppDispatch, useAppSelector } from '@src/app/hooks'
 import { replaceCards } from '@src/store/slices/cardsSlice'
+
 import { doc, setDoc } from 'firebase/firestore'
 import { authSelectors } from '@src/store'
 
 import { db } from '../../../firebase'
+
+import { setTotalPages } from '@src/store/slices/searchSlice'
 
 import { Search } from '../Search'
 import { SuggestionsBar } from '../SuggestionsBar'
@@ -19,13 +22,18 @@ export const SearchWithSuggestion: FC = () => {
   const [isSuggestionsBarVisible, setIsSuggestionsBarVisible] = useState(false)
   const [suggestions, setSuggestions] = useState<any[]>([])
 
-  const { searchValue } = useAppSelector((state) => state.search)
+  const { searchValue, countPerPage } = useAppSelector((state) => state.search)
 
   const handleSubmit = async () => {
     setIsSuggestionsBarVisible(false)
-    UnsplashApi.searchPhoto({ query: searchValue, per_page: 20 })
-      .then((res) => {
-        dispatch(replaceCards(res.results))
+    UnsplashApi.searchPhoto({
+      query: searchValue,
+      per_page: countPerPage,
+      page: 1,
+    })
+      .then(({results, total_pages}) => {
+        dispatch(replaceCards(results))
+        dispatch(setTotalPages(total_pages))
       })
       .catch(console.log)
 
@@ -35,7 +43,6 @@ export const SearchWithSuggestion: FC = () => {
       })
     } catch (error) {
       console.error('Ошибка при добавлении параметра поиска: ', error)
-    }
   }
 
   useEffect(() => {

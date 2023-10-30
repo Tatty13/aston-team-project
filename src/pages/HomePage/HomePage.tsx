@@ -11,13 +11,14 @@ import styles from './HomePage.module.scss'
 const HomePage = () => {
   const dispatch = useAppDispatch()
   const { cardsData } = useAppSelector((state) => state.cards)
+  const { countPerPage } = useAppSelector((state) => state.search)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   usePagination()
 
   useEffect(() => {
     if (!cardsData.length) {
       setIsLoading(true)
-      UnsplashApi.getRandomPhoto({ count: 20 })
+      UnsplashApi.getListPhotos({ page: 1, per_page: countPerPage })
         .then((data) => {
           dispatch(replaceCards(data))
         })
@@ -26,7 +27,7 @@ const HomePage = () => {
           setIsLoading(false)
         })
     }
-  }, [cardsData.length, dispatch])
+  }, [cardsData.length, dispatch, countPerPage])
 
   return (
     <div className={styles.wrapper}>

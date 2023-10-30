@@ -21,13 +21,10 @@ $brand-hover: rgb(var(--brand-secondary-rgb));
   color: rgb(var(--font-rgb));
   color: $brand;
   text-decoration: none;
-  border: 1px solid $brand;
-  background: var(--background-linear);
   transition: $transition;
 
   &:hover {
     color: $brand-hover;
-    border-color: $brand-hover;
   }
 
   &:hover .title::after {

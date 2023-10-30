@@ -1,0 +1,106 @@
+@mixin shadow {
+  $size: 11rem;
+
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: $size;
+  height: $size;
+  filter: blur(7.2rem);
+  border-radius: 50%;
+  background: rgb(var(--brand-secondary-rgb));
+
+  @media (max-width: 768px) {
+    $size: 8rem;
+
+    width: $size;
+    height: $size;
+  }
+}
+
+.section {
+  box-sizing: border-box;
+  height: calc(100vh - 9rem);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.subtitle,
+.title {
+  position: relative;
+  transition: 0.3s;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 9rem;
+
+  &::before {
+    @include shadow;
+    right: -4rem;
+    top: -2rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 7rem;
+
+    &::before {
+      right: -3rem;
+      top: -2rem;
+    }
+  }
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 8rem;
+  font-size: 2rem;
+  font-weight: 400;
+  text-transform: capitalize;
+
+  &::before {
+    @include shadow;
+    left: -4rem;
+    bottom: -3rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+
+    &::before {
+      left: -5rem;
+      bottom: -4rem;
+    }
+  }
+}
+
+.navList {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10rem;
+  list-style: none;
+
+  @media (max-width: 768px) {
+    gap: 2rem;
+  }
+}
+
+.navBtn {
+  padding: 0.5rem 1.5rem;
+  width: 9rem;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    color: rgb(var(--brand-rgb));
+  }
+}
