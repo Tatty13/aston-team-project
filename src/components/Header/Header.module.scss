@@ -1,15 +1,18 @@
+@import '@assets/scss/mixins';
+
 .header {
+  @include dynamic-paddings;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  box-sizing: border-box;
+  width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   display: flex;
   justify-content: space-between;
-  padding-top: 2rem;
-  padding-bottom: 3rem;
-
-  @media (max-width: 768px) {
-    padding-top: 1.6rem;
-    padding-bottom: 2rem;
-  }
-
-  @media (max-width: 480px) {
-    padding-top: 1rem;
-  }
+  align-items: center;
+  box-shadow: 0px 0px 5px 3px rgb(var(--background-rgb) / 0.92);
+  background: rgb(var(--background-rgb) / 0.92);
 }

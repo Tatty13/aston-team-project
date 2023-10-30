@@ -1,0 +1,16 @@
+@mixin dynamic-paddings {
+  $breakpoints: (
+    1410px: 4rem,
+    768px: 2rem,
+    480px: 1rem,
+  );
+
+  @each $width, $padding in $breakpoints {
+    @media (max-width: $width) {
+      & {
+        padding-left: $padding;
+        padding-right: $padding;
+      }
+    }
+  }
+}

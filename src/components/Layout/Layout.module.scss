@@ -1,27 +1,16 @@
+@import '@assets/scss/mixins';
+
 .page {
+  @include dynamic-paddings;
   margin: 0 auto;
   max-width: 1280px;
   min-width: 320px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-
-  $breakpoints: (
-    1410px: 4rem,
-    768px: 2rem,
-    480px: 1rem,
-  );
-
-  @each $width, $padding in $breakpoints {
-    @media (max-width: $width) {
-      & {
-        padding-left: $padding;
-        padding-right: $padding;
-      }
-    }
-  }
 }
 
 .main {
   flex-grow: 1;
+  margin-top: 8.5rem;
 }
