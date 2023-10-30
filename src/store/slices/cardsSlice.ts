@@ -17,11 +17,8 @@ const cardsSlice = createSlice({
     replaceCards(state, action: PayloadAction<any>) {
       state.cardsData = action.payload
     },
-    addCards(state, action: PayloadAction<any>) {
-      state.cardsData.push(action.payload)
-    },
     addMoreCards(state, action: PayloadAction<any>) {
-      state.cardsData = [...state.cardsData, ...action.payload]
+      state.cardsData.push(...action.payload)
     },
     removeCards(state) {
       state.cardsData = []
@@ -29,6 +26,5 @@ const cardsSlice = createSlice({
   },
 })
 
-export const { replaceCards, addCards, addMoreCards, removeCards } =
-  cardsSlice.actions
+export const { replaceCards, addMoreCards, removeCards } = cardsSlice.actions
 export default cardsSlice.reducer
