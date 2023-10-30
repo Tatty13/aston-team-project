@@ -1,4 +1,4 @@
-import { useAppSelector } from '@src/app/hooks'
+import { useAppSelector, useAuth } from '@src/app/hooks'
 import { authSelectors } from '@src/store'
 import { deleteDoc, doc, setDoc } from 'firebase/firestore'
 import { FC, useState } from 'react'
@@ -27,6 +27,7 @@ interface IUrls {
 }
 
 export const Card: FC<ICard> = (props) => {
+  const { isAuth } = useAuth()
   const { id, urls, alt_description, liked_by_user } = props
   const [isLiked, setIsLiked] = useState<boolean>(liked_by_user!)
   const uid = useAppSelector(authSelectors.uid)
@@ -56,6 +57,10 @@ export const Card: FC<ICard> = (props) => {
       <Link to={`/card?id=${id}`}>
         <div className={styles.fav}>
           <button
+            disabled={!isAuth}
+            title={
+              !isAuth ? 'Authorize to add to favorites' : 'Add to favorites'
+            }
             className={styles.favBtn}
             onClick={
               isLiked

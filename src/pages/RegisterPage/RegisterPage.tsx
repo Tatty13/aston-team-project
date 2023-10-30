@@ -13,7 +13,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <div>
+    <div className='authContainer'>
       <h1>Register</h1>
       <SignUp />
       <p>

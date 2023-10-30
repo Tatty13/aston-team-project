@@ -26,7 +26,7 @@ const Login = () => {
       .catch(() => alert('Invalid user!'))
   }
 
-  return <Form title='sign in' handleClick={handleLogin} />
+  return <Form title='Sign In' handleSubmit={handleLogin} />
 }
 
 export { Login }

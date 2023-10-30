@@ -1,0 +1,26 @@
+.authContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 370px;
+  width: 100%;
+
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+
+  h1 {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    font-size: 45px;
+  }
+
+  a {
+    text-decoration: none;
+    color: rgb(var(--brand-secondary-rgb));
+  }
+}

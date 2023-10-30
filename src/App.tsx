@@ -12,6 +12,7 @@ import {
 } from '@pages'
 import { checkAuth } from '@store/actions/authAction'
 import { Layout } from '@components'
+import './App.scss'
 
 function App() {
   const dispatch = useAppDispatch()

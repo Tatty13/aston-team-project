@@ -13,11 +13,11 @@ const LoginPage = () => {
   }
 
   return (
-    <div>
+    <div className='authContainer'>
       <h1>Login</h1>
       <Login />
       <p>
-        Or <Link to='/register'>register</Link>
+        Don&apos;t have an account? <Link to='/register'>Register here</Link>
       </p>
     </div>
   )

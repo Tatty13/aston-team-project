@@ -26,7 +26,7 @@ const SignUp = () => {
       .catch(console.error)
   }
 
-  return <Form title='register' handleClick={handleRegister} />
+  return <Form title='Sign Out' handleSubmit={handleRegister} />
 }
 
 export { SignUp }
