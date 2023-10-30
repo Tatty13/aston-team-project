@@ -10,9 +10,14 @@
   width: 100%;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  box-shadow: 0px 0px 5px 3px rgb(var(--background-rgb) / 0.92);
+  background: rgb(var(--background-rgb) / 0.92);
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: var(--max-width);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 0px 5px 3px rgb(var(--background-rgb) / 0.92);
-  background: rgb(var(--background-rgb) / 0.92);
 }
