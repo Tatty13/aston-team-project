@@ -29,7 +29,7 @@ const FavoritesPage = () => {
     <>
       {isLoading && <Preloader />}
       {!isLoading && data.length > 0 && <CardList cards={data} />}
-      {!isLoading && data.length === 0 && <h1>You have no favorites</h1>}
+      {!isLoading && data.length === 0 && <h2>You have no favorites</h2>}
     </>
   )
 }
