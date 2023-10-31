@@ -55,6 +55,7 @@
 * 🔍 photos search by keyword
 * ⚡ suggestion-bar
 * 🖼️ actions with photos (save/remove from favorites, viewing a separate page with a photo)
+* 🧾 recommendations based on the viewed photo
 * 💾 search history
 * 🎨 auto theme depending on user's system preferences
 
