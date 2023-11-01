@@ -1,8 +1,8 @@
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
-import { useAppDispatch } from '@hooks'
 import { Form } from '@components'
+import { useAppDispatch } from '@hooks'
 import { setUser } from '@store/slices/userSlice'
 import { toast } from 'react-toastify'
 

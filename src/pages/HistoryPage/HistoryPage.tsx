@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import { UnsplashApi } from '@api'
-import { useAppDispatch, useAppSelector } from '@hooks'
 import { Card, Preloader } from '@components'
+import { useAppDispatch, useAppSelector } from '@hooks'
 import { replaceCards } from '@store/slices/cardsSlice'
 import { useNavigate } from 'react-router-dom'
 

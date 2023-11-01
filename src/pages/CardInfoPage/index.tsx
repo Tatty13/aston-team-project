@@ -1,6 +1,6 @@
 import { Card } from '@components'
-import { getPhotoById, getRandomPhoto } from '@src/app/api/unsplash'
 import { useAppSelector, useAuth } from '@hooks'
+import { getPhotoById, getRandomPhoto } from '@src/app/api/unsplash'
 import { authSelectors } from '@store/store'
 import { doc, setDoc } from 'firebase/firestore'
 import { useCallback, useLayoutEffect, useState } from 'react'
