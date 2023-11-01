@@ -1,10 +1,10 @@
-import { useCallback, useLayoutEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { useAppSelector } from '@src/app/hooks'
-import { authSelectors } from '@src/store'
 import { Card } from '@components'
 import { getPhotoById, getRandomPhoto } from '@src/app/api/unsplash'
+import { useAppSelector, useAuth } from '@src/app/hooks'
+import { authSelectors } from '@src/store'
 import { doc, setDoc } from 'firebase/firestore'
+import { useCallback, useLayoutEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { db } from '../../../firebase'
 
@@ -16,18 +16,21 @@ function CardInfoPage() {
 
   const [imgData, setImgData] = useState<any>(null)
   const [similarImages, setSimilarImages] = useState<any>(null)
+  const { isAuth } = useAuth()
 
   const getImgData = useCallback(
     async (cardId) => {
       const response = await getPhotoById(cardId!)
       setImgData(response)
 
-      try {
-        await setDoc(doc(db, `users/${uid}/cardsHistory`, cardId), {
-          ...response,
-        })
-      } catch (error) {
-        console.error('Ошибка при добавлении карточки в историю: ', error)
+      if (isAuth) {
+        try {
+          await setDoc(doc(db, `users/${uid}/cardsHistory`, cardId), {
+            ...response,
+          })
+        } catch (error) {
+          console.error('Ошибка при добавлении карточки в историю: ', error)
+        }
       }
 
       const topic = response?.topics[0]?.id
