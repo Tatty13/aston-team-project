@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { collection, onSnapshot } from 'firebase/firestore'
+import { toast } from 'react-toastify'
 
 import { UnsplashApi } from '@api'
 import { Card, Preloader } from '@components'
 import { useAppDispatch, useAppSelector } from '@hooks'
 import { replaceCards } from '@store/slices/cardsSlice'
-import { useNavigate } from 'react-router-dom'
-
 import { authSelectors } from '@store/store'
-import { collection, onSnapshot } from 'firebase/firestore'
-import { toast } from 'react-toastify'
 
 import { db } from '../../../firebase'
-
 import styles from './History.module.scss'
 
 function HistoryPage() {
@@ -66,41 +64,44 @@ function HistoryPage() {
 
   // change key from index to id
   return (
-    <div className={styles.historyPage}>
-      <h2>Cards you&apos;ve looked at</h2>
-      {cardshistory?.length ? (
-        <ul className={styles.history}>
-          {cardshistory.map((card: any, index) => (
-            <li key={index}>
-              <Card {...card} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p
-          className={styles.message}
-        >{`You haven't looked at any cards yet`}</p>
-      )}
-
-      <h2>Search history</h2>
-      {searchHistory?.length ? (
-        <ul className={styles.search}>
-          {searchHistory.map((link, index) => (
-            <li
-              className={styles.searchItem}
-              key={index}
-              onClick={() => handleSearchItem(link.searchValue)}
-            >
-              {link.searchValue}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p
-          className={styles.message}
-        >{`You haven't searched for anything yet`}</p>
-      )}
-    </div>
+    <>
+      <section className={styles.cardsHistory}>
+        <h2>{`Cards you've looked at`}</h2>
+        {cardshistory?.length ? (
+          <ul className={styles.cardsList}>
+            {cardshistory.map((card: any, index) => (
+              <li key={index}>
+                <Card {...card} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p
+            className={styles.message}
+          >{`You haven't looked at any cards yet`}</p>
+        )}
+      </section>
+      <section className={styles.searchHistory}>
+        <h2>Search history</h2>
+        {searchHistory?.length ? (
+          <ul className={styles.searchList}>
+            {searchHistory.map((link, index) => (
+              <li
+                className={styles.searchItem}
+                key={index}
+                onClick={() => handleSearchItem(link.searchValue)}
+              >
+                {link.searchValue}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p
+            className={styles.message}
+          >{`You haven't searched for anything yet`}</p>
+        )}
+      </section>
+    </>
   )
 }
 
