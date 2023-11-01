@@ -66,10 +66,14 @@ function CardInfoPage() {
             <div className={styles.extraInfo}>
               <div className={styles.author}>{imgData?.user?.name}</div>
               <div className={styles.location}>
-                {imgData?.location?.country}
-                {imgData.location.city
-                  ? `, ${imgData.location.city}`
-                  : 'Unknown location'}
+                {!imgData?.location?.country ? (
+                  'Unknown location'
+                ) : (
+                  <>
+                    {imgData?.location?.country}
+                    {imgData.location.city ? `, ${imgData.location.city}` : ''}
+                  </>
+                )}
               </div>
             </div>
           </div>
