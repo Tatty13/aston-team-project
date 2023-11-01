@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { useAppDispatch } from '@hooks'
+import { useAppDispatch, useAppSelector } from '@hooks'
 import { ProtectedRoute } from '@HOC'
 import {
   CardInfoPage,
@@ -13,15 +13,23 @@ import {
   NotFoundPage,
 } from '@pages'
 import { checkAuth } from '@store/actions/authAction'
-import { Layout } from '@components'
+import { status } from '@store/selectors/authSelectors'
+import { Layout, Preloader } from '@components'
 import './App.scss'
 
 function App() {
   const dispatch = useAppDispatch()
+  const authStatus = useAppSelector(status)
 
   useEffect(() => {
     dispatch(checkAuth())
   }, [dispatch])
+
+  if (authStatus === 'LOADING') {
+    return (
+      <Preloader fullscreen/>
+    )
+  }
 
   return (
     <Layout>

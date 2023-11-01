@@ -57,36 +57,47 @@ function HistoryPage() {
       .finally(() => navigate('/'))
   }
 
+  if (isLoading) {
+    return <Preloader />
+  }
+
   // change key from index to id
   return (
-    <>
-      {isLoading && <Preloader />}
-      <div className={styles.historyPage}>
-        <h2>Cards you&apos;ve looked at</h2>
+    <div className={styles.historyPage}>
+      <h2>Cards you&apos;ve looked at</h2>
+      {cardshistory?.length ? (
         <ul className={styles.history}>
-          {cardshistory &&
-            cardshistory.map((card: any, index) => (
-              <li key={index}>
-                <Card {...card} />
-              </li>
-            ))}
+          {cardshistory.map((card: any, index) => (
+            <li key={index}>
+              <Card {...card} />
+            </li>
+          ))}
         </ul>
+      ) : (
+        <p
+          className={styles.message}
+        >{`You haven't looked at any cards yet`}</p>
+      )}
 
-        <h2>Search history</h2>
+      <h2>Search history</h2>
+      {searchHistory?.length ? (
         <ul className={styles.search}>
-          {searchHistory &&
-            searchHistory.map((link, index) => (
-              <li
-                className={styles.searchItem}
-                key={index}
-                onClick={() => handleSearchItem(link.searchValue)}
-              >
-                {link.searchValue}
-              </li>
-            ))}
+          {searchHistory.map((link, index) => (
+            <li
+              className={styles.searchItem}
+              key={index}
+              onClick={() => handleSearchItem(link.searchValue)}
+            >
+              {link.searchValue}
+            </li>
+          ))}
         </ul>
-      </div>
-    </>
+      ) : (
+        <p
+          className={styles.message}
+        >{`You haven't searched for anything yet`}</p>
+      )}
+    </div>
   )
 }
 
