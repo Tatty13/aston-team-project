@@ -1,11 +1,12 @@
 import { useAppSelector, useAuth } from '@src/app/hooks'
-import { authSelectors } from '@src/store'
+import { authSelectors } from '@src/store/store'
 import { deleteDoc, doc, setDoc } from 'firebase/firestore'
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import favFilled from '@assets/icons/fav-filled.png'
 import fav from '@assets/icons/fav.png'
+import { toast } from 'react-toastify'
 
 import { db } from '../../../firebase'
 import styles from './Card.module.scss'
@@ -43,8 +44,8 @@ export const Card: FC<ICard> = (props) => {
         ...props,
         liked_by_user: true,
       })
-    } catch (error) {
-      console.error('Ошибка при добавлении карточки в избранное: ', error)
+    } catch (error: string | any) {
+      toast.error('Error adding a card to favorites ', error)
     }
   }
 

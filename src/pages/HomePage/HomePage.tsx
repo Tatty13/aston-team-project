@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { UnsplashApi } from '@api'
-import { useAppDispatch, useAppSelector } from '@hooks'
-import { replaceCards } from '@store/slices/cardsSlice'
 import { CardList, Preloader, SearchWithSuggestion } from '@components'
+import { useAppDispatch, useAppSelector } from '@hooks'
 import { usePagination } from '@src/app/hooks/pagination'
+import { replaceCards } from '@store/slices/cardsSlice'
 
 import styles from './HomePage.module.scss'
 
@@ -22,7 +23,9 @@ const HomePage = () => {
         .then((data) => {
           dispatch(replaceCards(data))
         })
-        .catch(console.log)
+        .catch((error) => {
+          toast.error('Request error ', error)
+        })
         .finally(() => {
           setIsLoading(false)
         })

@@ -1,9 +1,10 @@
 import { NavLink, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { signOut } from 'firebase/auth'
 
 import { useAppDispatch, useAppSelector, useAuth } from '@hooks'
-import { authSelectors } from '@store'
+import { authSelectors } from '@src/store/store'
 import { removeUser } from '@store/slices/userSlice'
 
 import { auth } from '../../../../firebase'
@@ -20,8 +21,8 @@ export const NavBar = () => {
       await signOut(auth)
       dispatch(removeUser())
       navigate('/')
-    } catch (error) {
-      console.error(error)
+    } catch (error: string | any) {
+      toast.error('Error logging out ', error)
     }
   }
   const statusAuth = useAppSelector(authSelectors.status)

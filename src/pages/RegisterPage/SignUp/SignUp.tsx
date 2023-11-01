@@ -1,8 +1,9 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-import { useAppDispatch } from '@hooks'
 import { Form } from '@components'
+import { useAppDispatch } from '@hooks'
 import { setUser } from '@store/slices/userSlice'
 
 import { auth } from '../../../../firebase'
@@ -23,7 +24,7 @@ const SignUp = () => {
         )
         navigate('/')
       })
-      .catch(console.error)
+      .catch((error) => toast.error('Incorrect email or password ', error))
   }
 
   return <Form title='Sign Out' handleSubmit={handleRegister} />

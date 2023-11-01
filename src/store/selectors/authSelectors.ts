@@ -1,5 +1,5 @@
-import { RootState } from "..";
+import { RootState } from '../store'
 
-export const uid = (state: RootState) => state.auth.uid;
-export const email = (state: RootState) => state.auth.email;
-export const status = (state: RootState) => state.auth.statusAuth;
+export const uid = (state: RootState) => state.auth.uid
+export const email = (state: RootState) => state.auth.email
+export const status = (state: RootState) => state.auth.statusAuth
