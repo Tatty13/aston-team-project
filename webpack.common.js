@@ -27,7 +27,9 @@ const getPlugins = () => {
       ],
     }),
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name]-[chunkhash].css',
+    }),
     new Dotenv(),
   ]
 }

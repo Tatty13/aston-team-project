@@ -21,6 +21,7 @@ export const SearchWithSuggestion: FC = () => {
 
   const [isSuggestionsBarVisible, setIsSuggestionsBarVisible] = useState(false)
   const [suggestions, setSuggestions] = useState<any[]>([])
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const { searchValue, countPerPage } = useAppSelector((state) => state.search)
 
@@ -46,14 +47,24 @@ export const SearchWithSuggestion: FC = () => {
     }
   }
 
+  const handleSuggestionError = (err) => {
+    const message =
+      typeof err === 'string'
+        ? err
+        : 'An error occurred during the request. Please try again later.'
+    setErrorMessage(message)
+    setSuggestions([])
+  }
+
   useEffect(() => {
+    setErrorMessage('')
     if (searchValue) {
       UnsplashApi.getRandomPhoto({ count: 5, query: searchValue })
         .then((data) => {
           setSuggestions(data)
-          setIsSuggestionsBarVisible(true)
         })
-        .catch(console.log)
+        .catch(handleSuggestionError)
+        .finally(() => setIsSuggestionsBarVisible(true))
     }
   }, [searchValue])
 
@@ -81,6 +92,7 @@ export const SearchWithSuggestion: FC = () => {
       <SuggestionsBar
         photos={suggestions}
         visible={isSuggestionsBarVisible && searchValue.length > 0}
+        errorMessage={errorMessage}
       />
     </section>
   )
