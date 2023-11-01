@@ -32,7 +32,7 @@ export const Search: FC<SearchProps> = ({ onSubmit }) => {
 
   function handleSubmit(evt) {
     evt.preventDefault()
-    onSubmit()
+    onSubmit(value)
   }
 
   useEffect(

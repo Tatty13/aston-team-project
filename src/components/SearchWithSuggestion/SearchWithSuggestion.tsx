@@ -26,7 +26,7 @@ export const SearchWithSuggestion: FC = () => {
 
   const { searchValue, countPerPage } = useAppSelector((state) => state.search)
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (searchValue) => {
     setIsSuggestionsBarVisible(false)
     UnsplashApi.searchPhoto({
       query: searchValue,
