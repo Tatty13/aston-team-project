@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@hooks'
 import { Form } from '@components'
 import { setUser } from '@store/slices/userSlice'
+import { toast } from 'react-toastify'
 
 import { auth } from '../../../../firebase'
 
@@ -23,7 +24,7 @@ const Login = () => {
         )
         navigate('/')
       })
-      .catch(() => alert('Invalid user!'))
+      .catch((error) => toast.error('Incorrect email or password', error))
   }
 
   return <Form title='Sign In' handleSubmit={handleLogin} />

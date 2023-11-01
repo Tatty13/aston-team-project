@@ -1,13 +1,14 @@
 import { FC, useEffect, useState } from 'react'
 
-import { UnsplashApi } from '@src/app/api'
-import { useAppDispatch, useAppSelector, useAuth } from '@src/app/hooks'
-import { replaceCards } from '@src/store/slices/cardsSlice'
+import { UnsplashApi } from '@api'
+import { useAppDispatch, useAppSelector, useAuth } from '@hooks'
+import { replaceCards } from '@store/slices/cardsSlice'
+import { toast } from 'react-toastify'
 
-import { authSelectors } from '@src/store'
+import { authSelectors } from '@store/store'
 import { doc, setDoc } from 'firebase/firestore'
 
-import { setTotalPages } from '@src/store/slices/searchSlice'
+import { setTotalPages } from '@store/slices/searchSlice'
 
 import { db } from '../../../firebase'
 
@@ -37,15 +38,17 @@ export const SearchWithSuggestion: FC = () => {
         dispatch(replaceCards(results))
         dispatch(setTotalPages(total_pages))
       })
-      .catch(console.log)
+      .catch((error) => {
+        toast.error('Request error ', error)
+      })
 
     if (isAuth) {
       try {
         await setDoc(doc(db, `users/${uid}/searchHistory`, searchValue), {
           searchValue,
         })
-      } catch (error) {
-        console.error('Ошибка при добавлении параметра поиска: ', error)
+      } catch (error: string | any) {
+        toast.error('Error adding a search parameter ', error)
       }
     }
   }

@@ -52,7 +52,7 @@ const getRules = () => {
         'postcss-loader',
         'sass-loader',
       ],
-      exclude: /node_modules/,
+      exclude: /node_modules\/(?!(.*ReactToastify\.css))/,
     },
     {
       test: /\.(png|jpg|gif|jpeg)$/,

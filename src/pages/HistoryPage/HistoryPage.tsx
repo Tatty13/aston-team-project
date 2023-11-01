@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
+import { UnsplashApi } from '@api'
+import { useAppDispatch, useAppSelector } from '@hooks'
+import { Card, Preloader } from '@components'
+import { replaceCards } from '@store/slices/cardsSlice'
 import { useNavigate } from 'react-router-dom'
-import { Card, Preloader } from '@src/components'
-import { UnsplashApi } from '@src/app/api'
-import { useAppDispatch, useAppSelector } from '@src/app/hooks'
-import { replaceCards } from '@src/store/slices/cardsSlice'
 
-import { authSelectors } from '@src/store'
+import { authSelectors } from '@store/store'
 import { collection, onSnapshot } from 'firebase/firestore'
+import { toast } from 'react-toastify'
 
 import { db } from '../../../firebase'
 
@@ -53,7 +54,9 @@ function HistoryPage() {
       .then((res) => {
         dispatch(replaceCards(res.results))
       })
-      .catch(console.log)
+      .catch((error) => {
+        toast.error('Request error ', error)
+      })
       .finally(() => navigate('/'))
   }
 

@@ -1,10 +1,11 @@
 import { Card } from '@components'
 import { getPhotoById, getRandomPhoto } from '@src/app/api/unsplash'
-import { useAppSelector, useAuth } from '@src/app/hooks'
-import { authSelectors } from '@src/store'
+import { useAppSelector, useAuth } from '@hooks'
+import { authSelectors } from '@store/store'
 import { doc, setDoc } from 'firebase/firestore'
 import { useCallback, useLayoutEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { db } from '../../../firebase'
 
@@ -28,8 +29,8 @@ function CardInfoPage() {
           await setDoc(doc(db, `users/${uid}/cardsHistory`, cardId), {
             ...response,
           })
-        } catch (error) {
-          console.error('Ошибка при добавлении карточки в историю: ', error)
+        } catch (error: string | any) {
+          toast.error('Error when adding a card to the history ', error)
         }
       }
 
@@ -43,7 +44,7 @@ function CardInfoPage() {
 
       setSimilarImages(responseOfSimilarsPhotos)
     },
-    [uid]
+    [isAuth, uid]
   )
 
   useLayoutEffect(() => {
