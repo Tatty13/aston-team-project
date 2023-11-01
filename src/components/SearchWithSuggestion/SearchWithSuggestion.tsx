@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react'
 
 import { UnsplashApi } from '@src/app/api'
-import { useAppDispatch, useAppSelector } from '@src/app/hooks'
+import { useAppDispatch, useAppSelector, useAuth } from '@src/app/hooks'
 import { replaceCards } from '@src/store/slices/cardsSlice'
 
-import { doc, setDoc } from 'firebase/firestore'
 import { authSelectors } from '@src/store'
+import { doc, setDoc } from 'firebase/firestore'
 
 import { setTotalPages } from '@src/store/slices/searchSlice'
 
@@ -22,6 +22,7 @@ export const SearchWithSuggestion: FC = () => {
   const [isSuggestionsBarVisible, setIsSuggestionsBarVisible] = useState(false)
   const [suggestions, setSuggestions] = useState<any[]>([])
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const { isAuth } = useAuth()
 
   const { searchValue, countPerPage } = useAppSelector((state) => state.search)
 
@@ -38,12 +39,14 @@ export const SearchWithSuggestion: FC = () => {
       })
       .catch(console.log)
 
-    try {
-      await setDoc(doc(db, `users/${uid}/searchHistory`, searchValue), {
-        searchValue,
-      })
-    } catch (error) {
-      console.error('Ошибка при добавлении параметра поиска: ', error)
+    if (isAuth) {
+      try {
+        await setDoc(doc(db, `users/${uid}/searchHistory`, searchValue), {
+          searchValue,
+        })
+      } catch (error) {
+        console.error('Ошибка при добавлении параметра поиска: ', error)
+      }
     }
   }
 
