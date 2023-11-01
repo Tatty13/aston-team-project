@@ -1,14 +1,14 @@
 import { FC, useEffect, useState } from 'react'
 
-import { UnsplashApi } from '@src/app/api'
-import { useAppDispatch, useAppSelector, useAuth } from '@src/app/hooks'
-import { replaceCards } from '@src/store/slices/cardsSlice'
+import { UnsplashApi } from '@api'
+import { useAppDispatch, useAppSelector, useAuth } from '@hooks'
+import { replaceCards } from '@store/slices/cardsSlice'
 import { toast } from 'react-toastify'
 
-import { authSelectors } from '@src/store/store'
+import { authSelectors } from '@store/store'
 import { doc, setDoc } from 'firebase/firestore'
 
-import { setTotalPages } from '@src/store/slices/searchSlice'
+import { setTotalPages } from '@store/slices/searchSlice'
 
 import { db } from '../../../firebase'
 

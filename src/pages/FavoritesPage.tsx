@@ -1,6 +1,6 @@
-import { useAppSelector } from '@src/app/hooks'
-import { CardList, Preloader } from '@src/components'
-import { authSelectors } from '@src/store/store'
+import { useAppSelector } from '@hooks'
+import { CardList, Preloader } from '@components'
+import { authSelectors } from '@store/store'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 

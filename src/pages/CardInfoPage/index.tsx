@@ -1,7 +1,7 @@
 import { Card } from '@components'
 import { getPhotoById, getRandomPhoto } from '@src/app/api/unsplash'
-import { useAppSelector, useAuth } from '@src/app/hooks'
-import { authSelectors } from '@src/store/store'
+import { useAppSelector, useAuth } from '@hooks'
+import { authSelectors } from '@store/store'
 import { doc, setDoc } from 'firebase/firestore'
 import { useCallback, useLayoutEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -44,7 +44,7 @@ function CardInfoPage() {
 
       setSimilarImages(responseOfSimilarsPhotos)
     },
-    [uid]
+    [isAuth, uid]
   )
 
   useLayoutEffect(() => {

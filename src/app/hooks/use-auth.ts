@@ -1,4 +1,4 @@
-import { authSelectors } from '@src/store/store'
+import { authSelectors } from '@store/store'
 
 import { useAppSelector } from './redux-hooks'
 

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { UnsplashApi } from '@src/app/api'
-import { useAppDispatch, useAppSelector } from '@src/app/hooks'
-import { Card, Preloader } from '@src/components'
-import { replaceCards } from '@src/store/slices/cardsSlice'
+import { UnsplashApi } from '@api'
+import { useAppDispatch, useAppSelector } from '@hooks'
+import { Card, Preloader } from '@components'
+import { replaceCards } from '@store/slices/cardsSlice'
 import { useNavigate } from 'react-router-dom'
 
-import { authSelectors } from '@src/store/store'
+import { authSelectors } from '@store/store'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { toast } from 'react-toastify'
 

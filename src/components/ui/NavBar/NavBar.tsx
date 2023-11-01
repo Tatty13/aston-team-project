@@ -4,8 +4,8 @@ import { toast } from 'react-toastify'
 import { signOut } from 'firebase/auth'
 
 import { useAppDispatch, useAppSelector, useAuth } from '@hooks'
-import { authSelectors } from '@src/store/store'
 import { removeUser } from '@store/slices/userSlice'
+import { authSelectors } from '@store/store'
 
 import { auth } from '../../../../firebase'
 import { Preloader } from '../Preloader'

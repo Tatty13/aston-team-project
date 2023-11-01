@@ -1,12 +1,12 @@
-import { useAppSelector, useAuth } from '@src/app/hooks'
-import { authSelectors } from '@src/store/store'
+import { useAppSelector, useAuth } from '@hooks'
+import { authSelectors } from '@store/store'
 import { deleteDoc, doc, setDoc } from 'firebase/firestore'
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import favFilled from '@assets/icons/fav-filled.png'
 import fav from '@assets/icons/fav.png'
-import { toast } from 'react-toastify'
 
 import { db } from '../../../firebase'
 import styles from './Card.module.scss'
