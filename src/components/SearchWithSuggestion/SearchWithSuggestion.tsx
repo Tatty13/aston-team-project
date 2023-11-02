@@ -1,13 +1,11 @@
 import { FC, useEffect, useState } from 'react'
-
-import { UnsplashApi } from '@api'
-import { useAppDispatch, useAppSelector, useAuth } from '@hooks'
-import { replaceCards } from '@store/slices/cardsSlice'
+import { doc, setDoc } from 'firebase/firestore'
 import { toast } from 'react-toastify'
 
+import { UnsplashApi, UnsplashTypes } from '@api'
+import { useAppDispatch, useAppSelector, useAuth } from '@hooks'
+import { replaceCards } from '@store/slices/cardsSlice'
 import { authSelectors } from '@store/store'
-import { doc, setDoc } from 'firebase/firestore'
-
 import { setTotalPages } from '@store/slices/searchSlice'
 
 import { db } from '../../../firebase'
@@ -21,7 +19,7 @@ export const SearchWithSuggestion: FC = () => {
   const uid = useAppSelector(authSelectors.uid)
 
   const [isSuggestionsBarVisible, setIsSuggestionsBarVisible] = useState(false)
-  const [suggestions, setSuggestions] = useState<any[]>([])
+  const [suggestions, setSuggestions] = useState<UnsplashTypes.Card[]>([])
   const [errorMessage, setErrorMessage] = useState<string>('')
   const { isAuth } = useAuth()
 
@@ -67,7 +65,7 @@ export const SearchWithSuggestion: FC = () => {
     if (searchValue) {
       UnsplashApi.getRandomPhoto({ count: 5, query: searchValue })
         .then((data) => {
-          setSuggestions(data)
+          setSuggestions(data as UnsplashTypes.Card[])
         })
         .catch(handleSuggestionError)
         .finally(() => setIsSuggestionsBarVisible(true))

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { collection, onSnapshot } from 'firebase/firestore'
+import { DocumentData, collection, onSnapshot } from 'firebase/firestore'
 import { toast } from 'react-toastify'
 
-import { UnsplashApi } from '@api'
+import { UnsplashApi, UnsplashTypes } from '@api'
 import { Card, Preloader } from '@components'
 import { useAppDispatch, useAppSelector } from '@hooks'
 import { replaceCards } from '@store/slices/cardsSlice'
@@ -16,8 +16,10 @@ function HistoryPage() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const [cardshistory, setCardsHistory] = useState<Array<object>>([])
-  const [searchHistory, setSearchHistory] = useState<Array<any>>([])
+  const [cardshistory, setCardsHistory] = useState<Array<UnsplashTypes.Card>>(
+    []
+  )
+  const [searchHistory, setSearchHistory] = useState<Array<DocumentData>>([])
   const uid = useAppSelector(authSelectors.uid)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -26,7 +28,10 @@ function HistoryPage() {
     const unsubscribe = onSnapshot(
       collection(db, `users/${uid}/cardsHistory`),
       (snapshot) => {
-        const cards = snapshot.docs.map((doc) => doc.data())
+        const cards = snapshot.docs.map((doc) =>
+          doc.data()
+        ) as UnsplashTypes.Card[]
+
         setCardsHistory(cards.reverse())
         setIsLoading(false)
       }

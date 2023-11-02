@@ -1,3 +1,5 @@
+import { UnsplashTypes } from '@api'
+
 export interface ICardListProps {
-  cards: any[]
+  cards: UnsplashTypes.Card[]
 }
