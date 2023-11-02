@@ -1,45 +1,58 @@
-.historyPage {
+@mixin historySection {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 5rem;
 
-  .history {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 240px);
-    justify-content: center;
-    gap: 1rem;
-    list-style: none;
+  h2 {
+    padding-bottom: 1rem;
   }
+}
 
-  .search {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+@mixin list {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  gap: 1rem;
+  list-style: noneF;
+}
+
+.cardsHistory {
+  @include historySection;
+}
+
+.searchHistory {
+  @include historySection;
+}
+
+.cardsList {
+  @include list;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 240px);
+  justify-content: center;
+}
+
+.searchList {
+  @include list;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .searchItem {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
-    gap: 1rem;
+    height: 40px;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    background: rgb(var(--background-secondary-rgb));
+    cursor: pointer;
+    transition: all 0.3s ease;
 
-    .searchItem {
-      display: flex;
-      align-items: center;
-      height: 40px;
-      padding: 5px 10px;
-      list-style: none;
-      font-size: 16px;
-      border-radius: 10px;
-      background: rgb(var(--background-secondary-rgb));
-      cursor: pointer;
-      transition: all 0.3s ease;
-
-      &:hover {
-        background: rgb(var(--background-secondary-rgb) / 0.5);
-      }
+    &:hover {
+      background: rgb(var(--background-secondary-rgb) / 0.5);
     }
   }
 }
