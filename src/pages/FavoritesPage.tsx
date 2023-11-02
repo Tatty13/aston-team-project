@@ -1,13 +1,15 @@
+import { useEffect, useState } from 'react'
+import { collection, onSnapshot } from 'firebase/firestore'
+
 import { CardList, Preloader } from '@components'
 import { useAppSelector } from '@hooks'
 import { authSelectors } from '@store/store'
-import { collection, onSnapshot } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
+import { UnsplashTypes } from '@api'
 
 import { db } from '../../firebase'
 
 const FavoritesPage = () => {
-  const [data, setData] = useState<Array<object>>([])
+  const [data, setData] = useState<Array<UnsplashTypes.Card>>([])
   const uid = useAppSelector(authSelectors.uid)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -17,7 +19,7 @@ const FavoritesPage = () => {
       collection(db, `users/${uid}/favorites`),
       (snapshot) => {
         const newData = snapshot.docs.map((doc) => doc.data())
-        setData(newData)
+        setData(newData as UnsplashTypes.Card[])
         setIsLoading(false)
       }
     )

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { UnsplashApi } from '@api'
+import { UnsplashApi, UnsplashTypes } from '@api'
 import { useAppDispatch, useAppSelector } from '@hooks'
 import { addMoreCards } from '@store/slices/cardsSlice'
 
@@ -13,7 +13,7 @@ export function usePagination() {
   )
 
   const getPhotos = useCallback(async () => {
-    let photos: string[]
+    let photos: UnsplashTypes.Card[]
 
     if (!searchValue) {
       photos = await UnsplashApi.getListPhotos({

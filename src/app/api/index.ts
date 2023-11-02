@@ -1,1 +1,1 @@
-export * as UnsplashApi from './unsplash'
+export * from './unsplash'
