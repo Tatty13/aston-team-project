@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
 import { collection, onSnapshot } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
 
+import { UnsplashTypes } from '@api'
 import { CardList, Preloader } from '@components'
 import { useAppSelector } from '@hooks'
 import { authSelectors } from '@store/store'
-import { UnsplashTypes } from '@api'
 
-import { db } from '../../firebase'
+import { db } from '../../../firebase'
 
 const FavoritesPage = () => {
   const [data, setData] = useState<Array<UnsplashTypes.Card>>([])
@@ -36,4 +36,4 @@ const FavoritesPage = () => {
   )
 }
 
-export { FavoritesPage }
+export default FavoritesPage
