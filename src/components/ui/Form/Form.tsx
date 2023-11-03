@@ -46,14 +46,13 @@ export const Form: FC<FormProps> = ({ title, handleSubmit }) => {
     validatePassword(value)
   }
 
+  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    handleSubmit(email, pass)
+  }
+
   return (
-    <form
-      className={styles.form}
-      onSubmit={(e) => {
-        e.preventDefault()
-        handleSubmit(email, pass)
-      }}
-    >
+    <form className={styles.form} onSubmit={handleSubmitForm}>
       <div>
         <label htmlFor='email'>Email:</label>
         <input

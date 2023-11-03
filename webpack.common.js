@@ -72,7 +72,8 @@ const getRules = () => {
     },
     {
       test: /\.svg$/,
-      use: ['@svgr/webpack'],
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack', 'file-loader'],
     },
   ]
 }

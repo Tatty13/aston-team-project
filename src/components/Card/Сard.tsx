@@ -35,7 +35,7 @@ export const Card: FC<ICard> = (props) => {
 
   const handleLikePost = (event: React.MouseEvent) => {
     event.preventDefault()
-    setIsLiked(() => !isLiked)
+    setIsLiked(!isLiked)
   }
 
   const addFavorites = async () => {
