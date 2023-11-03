@@ -1,10 +1,12 @@
-import { Card } from '@components'
-import { getPhotoById, getRandomPhoto } from '@src/app/api/unsplash'
-import { useAppSelector, useAuth } from '@src/app/hooks'
-import { authSelectors } from '@src/store'
-import { doc, setDoc } from 'firebase/firestore'
 import { useCallback, useLayoutEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { doc, setDoc } from 'firebase/firestore'
+import { toast } from 'react-toastify'
+
+import { Card } from '@components'
+import { useAppSelector, useAuth } from '@hooks'
+import { UnsplashApi, UnsplashTypes } from '@api'
+import { authSelectors } from '@store/store'
 
 import { db } from '../../../firebase'
 
@@ -14,13 +16,15 @@ function CardInfoPage() {
   const location = useLocation()
   const uid = useAppSelector(authSelectors.uid)
 
-  const [imgData, setImgData] = useState<any>(null)
-  const [similarImages, setSimilarImages] = useState<any>(null)
+  const [imgData, setImgData] = useState<UnsplashTypes.Card | null>(null)
+  const [similarImages, setSimilarImages] = useState<
+    UnsplashTypes.Card[] | null
+  >(null)
   const { isAuth } = useAuth()
 
   const getImgData = useCallback(
     async (cardId) => {
-      const response = await getPhotoById(cardId!)
+      const response = await UnsplashApi.getPhotoById(cardId!)
       setImgData(response)
 
       if (isAuth) {
@@ -28,22 +32,22 @@ function CardInfoPage() {
           await setDoc(doc(db, `users/${uid}/cardsHistory`, cardId), {
             ...response,
           })
-        } catch (error) {
-          console.error('Ошибка при добавлении карточки в историю: ', error)
+        } catch (error: string | any) {
+          toast.error('Error when adding a card to the history ', error)
         }
       }
 
-      const topic = response?.topics[0]?.id
+      const topic = response?.topics ? response?.topics[0]?.id : ''
 
-      const responseOfSimilarsPhotos = await getRandomPhoto({
+      const responseOfSimilarsPhotos = await UnsplashApi.getRandomPhoto({
         topics: topic,
         orientation: 'portrait',
         count: 20,
       })
 
-      setSimilarImages(responseOfSimilarsPhotos)
+      setSimilarImages(responseOfSimilarsPhotos as UnsplashTypes.Card[])
     },
-    [uid]
+    [isAuth, uid]
   )
 
   useLayoutEffect(() => {
@@ -66,10 +70,14 @@ function CardInfoPage() {
             <div className={styles.extraInfo}>
               <div className={styles.author}>{imgData?.user?.name}</div>
               <div className={styles.location}>
-                {imgData?.location?.country}
-                {imgData.location.city
-                  ? `, ${imgData.location.city}`
-                  : 'Unknown location'}
+                {!imgData?.location?.country ? (
+                  'Unknown location'
+                ) : (
+                  <>
+                    {imgData?.location?.country}
+                    {imgData.location.city ? `, ${imgData.location.city}` : ''}
+                  </>
+                )}
               </div>
             </div>
           </div>

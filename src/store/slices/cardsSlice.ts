@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { UnsplashTypes } from '@api'
 
 interface ICardsInitialState {
-  cardsData: any[]
-  saveCardsData: any[]
+  cardsData: UnsplashTypes.Card[]
+  saveCardsData: UnsplashTypes.Card[]
 }
 
 const initialState: ICardsInitialState = {
@@ -14,10 +15,10 @@ const cardsSlice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
-    replaceCards(state, action: PayloadAction<any>) {
+    replaceCards(state, action: PayloadAction<UnsplashTypes.Card[]>) {
       state.cardsData = action.payload
     },
-    addMoreCards(state, action: PayloadAction<any>) {
+    addMoreCards(state, action: PayloadAction<UnsplashTypes.Card[]>) {
       state.cardsData.push(...action.payload)
     },
     removeCards(state) {

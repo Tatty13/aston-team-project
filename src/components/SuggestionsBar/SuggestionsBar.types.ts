@@ -1,5 +1,7 @@
+import { UnsplashTypes } from '@api'
+
 export type SuggestionsBarProps = {
-  photos: any[]
+  photos: UnsplashTypes.Card[]
   visible: boolean
   errorMessage?: string
 }

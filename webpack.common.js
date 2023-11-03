@@ -52,7 +52,7 @@ const getRules = () => {
         'postcss-loader',
         'sass-loader',
       ],
-      exclude: /node_modules/,
+      exclude: /node_modules\/(?!(.*ReactToastify\.css))/,
     },
     {
       test: /\.(png|jpg|gif|jpeg)$/,
@@ -72,7 +72,8 @@ const getRules = () => {
     },
     {
       test: /\.svg$/,
-      use: ['@svgr/webpack'],
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack', 'file-loader'],
     },
   ]
 }

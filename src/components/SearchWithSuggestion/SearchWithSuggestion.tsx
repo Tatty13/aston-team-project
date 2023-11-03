@@ -1,13 +1,12 @@
 import { FC, useEffect, useState } from 'react'
-
-import { UnsplashApi } from '@src/app/api'
-import { useAppDispatch, useAppSelector, useAuth } from '@src/app/hooks'
-import { replaceCards } from '@src/store/slices/cardsSlice'
-
-import { authSelectors } from '@src/store'
 import { doc, setDoc } from 'firebase/firestore'
+import { toast } from 'react-toastify'
 
-import { setTotalPages } from '@src/store/slices/searchSlice'
+import { UnsplashApi, UnsplashTypes } from '@api'
+import { useAppDispatch, useAppSelector, useAuth } from '@hooks'
+import { replaceCards } from '@store/slices/cardsSlice'
+import { authSelectors } from '@store/store'
+import { setTotalPages } from '@store/slices/searchSlice'
 
 import { db } from '../../../firebase'
 
@@ -20,7 +19,7 @@ export const SearchWithSuggestion: FC = () => {
   const uid = useAppSelector(authSelectors.uid)
 
   const [isSuggestionsBarVisible, setIsSuggestionsBarVisible] = useState(false)
-  const [suggestions, setSuggestions] = useState<any[]>([])
+  const [suggestions, setSuggestions] = useState<UnsplashTypes.Card[]>([])
   const [errorMessage, setErrorMessage] = useState<string>('')
   const { isAuth } = useAuth()
 
@@ -37,15 +36,17 @@ export const SearchWithSuggestion: FC = () => {
         dispatch(replaceCards(results))
         dispatch(setTotalPages(total_pages))
       })
-      .catch(console.log)
+      .catch((error) => {
+        toast.error('Request error ', error)
+      })
 
     if (isAuth) {
       try {
         await setDoc(doc(db, `users/${uid}/searchHistory`, searchValue), {
           searchValue,
         })
-      } catch (error) {
-        console.error('Ошибка при добавлении параметра поиска: ', error)
+      } catch (error: string | any) {
+        toast.error('Error adding a search parameter ', error)
       }
     }
   }
@@ -64,7 +65,7 @@ export const SearchWithSuggestion: FC = () => {
     if (searchValue) {
       UnsplashApi.getRandomPhoto({ count: 5, query: searchValue })
         .then((data) => {
-          setSuggestions(data)
+          setSuggestions(data as UnsplashTypes.Card[])
         })
         .catch(handleSuggestionError)
         .finally(() => setIsSuggestionsBarVisible(true))

@@ -3,7 +3,9 @@ import { FC, useEffect, useRef, useState } from 'react'
 import { useAppDispatch, useDebouncedFunction } from '@hooks'
 import { resetSearch, setSearchValue } from '@store/slices/searchSlice'
 
-import { CloseIcon, SearchIcon } from '../ui'
+import { ReactComponent as SearchIcon } from '@assets/svg/searchIcon.svg'
+import { ReactComponent as CloseIcon } from '@assets/svg/closeIcon.svg'
+
 import { SearchProps } from './Search.types'
 import styles from './Search.module.scss'
 

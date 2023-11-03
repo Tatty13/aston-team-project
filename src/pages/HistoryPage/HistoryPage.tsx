@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from 'react'
-
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Card, Preloader } from '@src/components'
-import { UnsplashApi } from '@src/app/api'
-import { useAppDispatch, useAppSelector } from '@src/app/hooks'
-import { replaceCards } from '@src/store/slices/cardsSlice'
+import { DocumentData, collection, onSnapshot } from 'firebase/firestore'
+import { toast } from 'react-toastify'
 
-import { authSelectors } from '@src/store'
-import { collection, onSnapshot } from 'firebase/firestore'
+import { UnsplashApi, UnsplashTypes } from '@api'
+import { Card, Preloader } from '@components'
+import { useAppDispatch, useAppSelector } from '@hooks'
+import { replaceCards } from '@store/slices/cardsSlice'
+import { authSelectors } from '@store/store'
 
 import { db } from '../../../firebase'
-
 import styles from './History.module.scss'
 
 function HistoryPage() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const [cardshistory, setCardsHistory] = useState<Array<object>>([])
-  const [searchHistory, setSearchHistory] = useState<Array<any>>([])
+  const [cardshistory, setCardsHistory] = useState<Array<UnsplashTypes.Card>>(
+    []
+  )
+  const [searchHistory, setSearchHistory] = useState<Array<DocumentData>>([])
   const uid = useAppSelector(authSelectors.uid)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -27,7 +28,10 @@ function HistoryPage() {
     const unsubscribe = onSnapshot(
       collection(db, `users/${uid}/cardsHistory`),
       (snapshot) => {
-        const cards = snapshot.docs.map((doc) => doc.data())
+        const cards = snapshot.docs.map((doc) =>
+          doc.data()
+        ) as UnsplashTypes.Card[]
+
         setCardsHistory(cards.reverse())
         setIsLoading(false)
       }
@@ -53,7 +57,9 @@ function HistoryPage() {
       .then((res) => {
         dispatch(replaceCards(res.results))
       })
-      .catch(console.log)
+      .catch((error) => {
+        toast.error('Request error ', error)
+      })
       .finally(() => navigate('/'))
   }
 
@@ -63,41 +69,44 @@ function HistoryPage() {
 
   // change key from index to id
   return (
-    <div className={styles.historyPage}>
-      <h2>Cards you&apos;ve looked at</h2>
-      {cardshistory?.length ? (
-        <ul className={styles.history}>
-          {cardshistory.map((card: any, index) => (
-            <li key={index}>
-              <Card {...card} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p
-          className={styles.message}
-        >{`You haven't looked at any cards yet`}</p>
-      )}
-
-      <h2>Search history</h2>
-      {searchHistory?.length ? (
-        <ul className={styles.search}>
-          {searchHistory.map((link, index) => (
-            <li
-              className={styles.searchItem}
-              key={index}
-              onClick={() => handleSearchItem(link.searchValue)}
-            >
-              {link.searchValue}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p
-          className={styles.message}
-        >{`You haven't searched for anything yet`}</p>
-      )}
-    </div>
+    <>
+      <section className={styles.cardsHistory}>
+        <h2>{`Cards you've looked at`}</h2>
+        {cardshistory?.length ? (
+          <ul className={styles.cardsList}>
+            {cardshistory.map((card: any, index) => (
+              <li key={index}>
+                <Card {...card} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p
+            className={styles.message}
+          >{`You haven't looked at any cards yet`}</p>
+        )}
+      </section>
+      <section className={styles.searchHistory}>
+        <h2>Search history</h2>
+        {searchHistory?.length ? (
+          <ul className={styles.searchList}>
+            {searchHistory.map((link, index) => (
+              <li
+                className={styles.searchItem}
+                key={index}
+                onClick={() => handleSearchItem(link.searchValue)}
+              >
+                {link.searchValue}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p
+            className={styles.message}
+          >{`You haven't searched for anything yet`}</p>
+        )}
+      </section>
+    </>
   )
 }
 

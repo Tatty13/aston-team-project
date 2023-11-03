@@ -1,8 +1,9 @@
-import { useAppSelector, useAuth } from '@src/app/hooks'
-import { authSelectors } from '@src/store'
+import { useAppSelector, useAuth } from '@hooks'
+import { authSelectors } from '@store/store'
 import { deleteDoc, doc, setDoc } from 'firebase/firestore'
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import favFilled from '@assets/icons/fav-filled.png'
 import fav from '@assets/icons/fav.png'
@@ -34,7 +35,7 @@ export const Card: FC<ICard> = (props) => {
 
   const handleLikePost = (event: React.MouseEvent) => {
     event.preventDefault()
-    setIsLiked(() => !isLiked)
+    setIsLiked(!isLiked)
   }
 
   const addFavorites = async () => {
@@ -43,8 +44,8 @@ export const Card: FC<ICard> = (props) => {
         ...props,
         liked_by_user: true,
       })
-    } catch (error) {
-      console.error('Ошибка при добавлении карточки в избранное: ', error)
+    } catch (error: string | any) {
+      toast.error('Error adding a card to favorites ', error)
     }
   }
 
